@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0467E36D2DDE4DAD004D0464 /* TimesNewRoman-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0467E36C2DDE4DAD004D0464 /* TimesNewRoman-Regular.ttf */; };
+		0467E36F2DDE4DB8004D0464 /* TimesNewRoman-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0467E36E2DDE4DB8004D0464 /* TimesNewRoman-Italic.ttf */; };
+		0467E3712DDE4DC3004D0464 /* TimesNewRoman-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0467E3702DDE4DC3004D0464 /* TimesNewRoman-BoldItalic.ttf */; };
+		0467E3732DDE4DDD004D0464 /* TimesNewRoman-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0467E3722DDE4DDD004D0464 /* TimesNewRoman-Bold.ttf */; };
+		0467E3752DDE4DEA004D0464 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0467E3742DDE4DEA004D0464 /* Roboto-Regular.ttf */; };
+		0467E3772DDE4DF3004D0464 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0467E3762DDE4DF3004D0464 /* Roboto-MediumItalic.ttf */; };
+		0467E3792DDE4DFB004D0464 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0467E3782DDE4DFB004D0464 /* Roboto-Medium.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-NightNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-NightNews.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
@@ -17,6 +24,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0467E36C2DDE4DAD004D0464 /* TimesNewRoman-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TimesNewRoman-Regular.ttf"; sourceTree = "<group>"; };
+		0467E36E2DDE4DB8004D0464 /* TimesNewRoman-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TimesNewRoman-Italic.ttf"; sourceTree = "<group>"; };
+		0467E3702DDE4DC3004D0464 /* TimesNewRoman-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TimesNewRoman-BoldItalic.ttf"; sourceTree = "<group>"; };
+		0467E3722DDE4DDD004D0464 /* TimesNewRoman-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TimesNewRoman-Bold.ttf"; sourceTree = "<group>"; };
+		0467E3742DDE4DEA004D0464 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		0467E3762DDE4DF3004D0464 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
+		0467E3782DDE4DFB004D0464 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* NightNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NightNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = NightNews/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NightNews/Info.plist; sourceTree = "<group>"; };
@@ -25,9 +39,9 @@
 		5709B34CF0A7D63546082F79 /* Pods-NightNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NightNews.release.xcconfig"; path = "Target Support Files/Pods-NightNews/Pods-NightNews.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-NightNews.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NightNews.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = NightNews/AppDelegate.swift; sourceTree = "<group>"; };
-		7887FAB7EC4346418EC1017F /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = NightNews/BootSplash.storyboard; sourceTree = "<group>"; };
+		7887FAB7EC4346418EC1017F /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = NightNews/BootSplash.storyboard; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = NightNews/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C1783B6E937C4C1095806998 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = NightNews/Colors.xcassets; sourceTree = "<group>"; };
+		C1783B6E937C4C1095806998 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = NightNews/Colors.xcassets; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -43,9 +57,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0467E3632DDE4D5D004D0464 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0467E36C2DDE4DAD004D0464 /* TimesNewRoman-Regular.ttf */,
+				0467E36E2DDE4DB8004D0464 /* TimesNewRoman-Italic.ttf */,
+				0467E3702DDE4DC3004D0464 /* TimesNewRoman-BoldItalic.ttf */,
+				0467E3722DDE4DDD004D0464 /* TimesNewRoman-Bold.ttf */,
+				0467E3742DDE4DEA004D0464 /* Roboto-Regular.ttf */,
+				0467E3762DDE4DF3004D0464 /* Roboto-MediumItalic.ttf */,
+				0467E3782DDE4DFB004D0464 /* Roboto-Medium.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* NightNews */ = {
 			isa = PBXGroup;
 			children = (
+				0467E3632DDE4D5D004D0464 /* fonts */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -164,10 +193,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0467E36F2DDE4DB8004D0464 /* TimesNewRoman-Italic.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				0467E3752DDE4DEA004D0464 /* Roboto-Regular.ttf in Resources */,
+				0467E3732DDE4DDD004D0464 /* TimesNewRoman-Bold.ttf in Resources */,
+				0467E36D2DDE4DAD004D0464 /* TimesNewRoman-Regular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				9C1883F3564512E8D28FFFC5 /* PrivacyInfo.xcprivacy in Resources */,
+				0467E3712DDE4DC3004D0464 /* TimesNewRoman-BoldItalic.ttf in Resources */,
+				0467E3792DDE4DFB004D0464 /* Roboto-Medium.ttf in Resources */,
 				E60EECCF6CB741F886D9836D /* BootSplash.storyboard in Resources */,
+				0467E3772DDE4DF3004D0464 /* Roboto-MediumItalic.ttf in Resources */,
 				B9009EF4A67644D8A222F50D /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
