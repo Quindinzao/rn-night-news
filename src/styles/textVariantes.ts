@@ -1,8 +1,6 @@
-import { Platform } from 'react-native';
 import { DefaultTheme } from 'styled-components/native';
 
 type Theme = DefaultTheme;
-const ios = Platform.OS === 'ios';
 
 export type TextVariant =
   | 'titleLarge'
@@ -21,56 +19,56 @@ export const getTextVariants = (theme: Theme) => ({
   titleLarge: {
     fontSize: theme.fontSize.xxl,
     color: theme.colors.titleColor,
-    fontFamily: ios ? 'Times New Roman' : 'TimesNewRoman-Regular',
+    fontFamily: theme.fontFamily.titleLarge,
   },
   titleMedium: {
     fontSize: theme.fontSize.xl,
     color: theme.colors.titleColor,
-    fontFamily: ios ? 'Times New Roman Bold' : 'TimesNewRoman-Bold',
+    fontFamily: theme.fontFamily.titleMedium,
   },
   titleRegular: {
     fontSize: theme.fontSize.lg,
     color: theme.colors.titleColor,
-    fontFamily: ios ? 'Times New Roman Bold' : 'TimesNewRoman-Bold',
+    fontFamily: theme.fontFamily.titleRegular,
   },
   titleSmall: {
     fontSize: theme.fontSize.md,
     color: theme.colors.titleColor,
-    fontFamily: ios ? 'Roboto Medium' : 'Roboto-Medium',
+    fontFamily: theme.fontFamily.titleSmall,
   },
   bodyLarge: {
     fontSize: theme.fontSize.lg,
     color: theme.colors.textColor,
-    fontFamily: ios ? 'Times New Roman' : 'TimesNewRoman-Regular',
+    fontFamily: theme.fontFamily.bodyLarge,
   },
   bodyMedium: {
     fontSize: theme.fontSize.md,
     color: theme.colors.textColor,
-    fontFamily: ios ? 'Roboto Medium' : 'Roboto-Medium',
+    fontFamily: theme.fontFamily.bodyMedium,
   },
   bodySmall: {
     fontSize: theme.fontSize.sm,
     color: theme.colors.textColor,
-    fontFamily: ios ? 'Times New Roman' : 'TimesNewRoman-Regular',
+    fontFamily: theme.fontFamily.bodySmall,
   },
   captionLarge: {
     fontSize: theme.fontSize.xs,
     color: theme.colors.titleColor,
-    fontFamily: ios ? 'Roboto Regular' : 'Roboto-Regular',
+    fontFamily: theme.fontFamily.captionLarge,
   },
   captionLargeItalic: {
     fontSize: theme.fontSize.xs,
     color: theme.colors.titleColor,
-    fontFamily: ios ? 'Roboto Medium Italic' : 'Roboto-MediumItalic',
+    fontFamily: theme.fontFamily.captionLargeItalic,
   },
   captionSmall: {
     fontSize: theme.fontSize.xxs,
     color: theme.colors.titleColor,
-    fontFamily: ios ? 'Times New Roman Bold Italic' : 'TimesNewRoman-BoldItalic',
+    fontFamily: theme.fontFamily.captionSmall,
   },
   captionSmallItalic: {
     fontSize: theme.fontSize.xxs,
     color: theme.colors.titleColor,
-    fontFamily: ios ? 'Times New Roman Italic' : 'TimesNewRoman-Italic',
+    fontFamily: theme.fontFamily.captionSmallItalic,
   },
 });

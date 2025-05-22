@@ -2,7 +2,13 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
+  background-color: ${({ theme }) => theme.colors.backgroundAppColor};
+`;
+
+export const Body = styled.View`
   justify-content: flex-start;
   align-items: center;
-  background-color: ${props => props.theme.colors.backgroundAppColor};
+
+  padding-right: ${({ theme }) => theme.spacing.md};
+  padding-left: ${({ theme }) => theme.spacing.md};
 `;

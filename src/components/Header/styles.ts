@@ -25,6 +25,6 @@ export const StyledLogo = styled(Logo).attrs({
   height: 64,
 })`
   position: absolute;
-  top: ${props => props.theme.spacing.xxl}px;
+  top: ${({ theme }) => theme.spacing.xxl}px;
   align-self: center;
 `;
