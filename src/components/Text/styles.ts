@@ -5,7 +5,7 @@ type TextProps = {
   type: TextVariant;
 };
 
-export const NNText = styled.Text<TextProps>`
+export const RNText = styled.Text<TextProps>`
   ${({ type, theme }) => {
     const variant = getTextVariants(theme)[type];
 

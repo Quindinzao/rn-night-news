@@ -1,12 +1,15 @@
-import { Container } from './styles';
-import Header from '../../components/Header';
+import React from 'react';
+import { Container, StyledLogo } from './styles';
+import Text from '../../components/Text';
+import SelectableBox from '../../components/SelectableBox';
 
 const FavoriteCategories = (): React.JSX.Element => {
+
   return (
     <Container>
-      <Header
-        title={'News for your\nInsomnia'}
-        imageStr={require('../../assets/images/imgScreen1.png')} />
+      <StyledLogo />
+      <Text type="titleLarge">Choose your three favorite categories</Text>
+      <SelectableBox label={'Technology'} />
     </Container>
   );
 };

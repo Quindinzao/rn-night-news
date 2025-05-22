@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextProps as RNTextProps } from 'react-native';
-import { NNText } from './styles';
+import { RNText } from './styles';
 import { TextVariant } from '../../styles/textVariantes';
 
 type TextProps = RNTextProps & {
@@ -10,9 +10,9 @@ type TextProps = RNTextProps & {
 
 const Text = ({type, children, ...rest}: TextProps): React.JSX.Element => {
   return (
-    <NNText type={type} {...rest}>
+    <RNText type={type} {...rest}>
       {children}
-    </NNText>
+    </RNText>
   );
 };
 

@@ -4,7 +4,7 @@ import Logo from '../../assets/svg/Logo';
 
 const { width: widthScreen } = Dimensions.get('window');
 
-export const NNHeader = styled.View`
+export const RNHeader = styled.View`
   justify-content: flex-end;
   align-items: flex-start;
 

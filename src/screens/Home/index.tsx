@@ -1,0 +1,15 @@
+import { Container } from './styles';
+import Header from '../../components/Header';
+
+const Home = (): React.JSX.Element => {
+  return (
+    <Container>
+      <Header
+        title={'News for your\nInsomnia'}
+        imageStr={require('../../assets/images/imgScreen1.png')}
+      />
+    </Container>
+  );
+};
+
+export default Home;
