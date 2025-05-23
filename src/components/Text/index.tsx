@@ -4,13 +4,13 @@ import { RNText } from './styles';
 import { TextVariant } from '../../styles/textVariantes';
 
 type TextProps = RNTextProps & {
-  type: TextVariant;
+  textType: TextVariant;
   children: React.ReactNode;
 };
 
-const Text = ({type, children, ...rest}: TextProps): React.JSX.Element => {
+const Text = ({textType, children, ...rest}: TextProps): React.JSX.Element => {
   return (
-    <RNText type={type} {...rest}>
+    <RNText textType={textType} {...rest}>
       {children}
     </RNText>
   );

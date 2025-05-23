@@ -37,7 +37,7 @@ const SelectableBox = ({ label, categoriesSelected, onToggle }: SelectableBoxPro
     <RNSelectableBox style={{ backgroundColor }}>
       <Container onPress={handleToggle}>
         <Text
-          type="bodyMedium"
+          textType="bodyMedium"
           style={{
             color: isSelected
               ? theme.colors.backgroundAppColor

@@ -45,7 +45,7 @@ const FavoriteCategories = (): React.JSX.Element => {
     <Container>
       <View>
         <StyledLogo />
-        <Text type="titleLarge">Choose your three favorite categories</Text>
+        <Text textType="titleLarge">Choose your three favorite categories</Text>
         <Content>
           {newsCategories.map((item, index) => {
             return <SelectableBox key={index} label={item} onToggle={handleCategoryPress} categoriesSelected={categoriesSelected} />;

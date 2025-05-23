@@ -9,7 +9,7 @@ type ButtonProps = {
 const Button = ({onPress, children}: ButtonProps): React.JSX.Element => {
   return (
     <RNButton onPress={onPress} activeOpacity={0.7}>
-      <Text type="bodyMedium">{children}</Text>
+      <Text textType="bodyMedium">{children}</Text>
     </RNButton>
   );
 };

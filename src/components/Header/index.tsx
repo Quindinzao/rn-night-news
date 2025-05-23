@@ -13,7 +13,7 @@ const Header = ({ title, imageStr }: HeaderProps): React.JSX.Element => {
     <RNHeader>
       <ImageHeader source={imageStr} />
       <StyledLogo />
-      <Text type="titleLarge">{title}</Text>
+      <Text textType="titleLarge">{title}</Text>
     </RNHeader>
   );
 };

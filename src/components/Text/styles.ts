@@ -2,11 +2,11 @@ import styled from 'styled-components/native';
 import { getTextVariants, TextVariant } from '../../styles/textVariantes';
 
 type TextProps = {
-  type: TextVariant;
+  textType: TextVariant;
 };
 
 export const RNText = styled.Text<TextProps>`
-  ${({ type, theme }) => {
+  ${({ textType: type, theme }) => {
     const variant = getTextVariants(theme)[type];
 
     return `
