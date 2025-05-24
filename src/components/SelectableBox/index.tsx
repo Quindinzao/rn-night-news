@@ -4,15 +4,10 @@ import { useTheme } from 'styled-components/native';
 import { RNSelectableBox, Container } from './styles';
 import Text from '../Text';
 import { Animated } from 'react-native';
+import { SelectableBoxProps } from '../../interfaces/SelectableBox';
 
-type SelectableBoxProps = {
-  label: string;
-  categoriesSelected: string[];
-  onToggle: (item: string) => void;
-};
-
-const SelectableBox = ({ label, categoriesSelected, onToggle }: SelectableBoxProps): React.JSX.Element => {
-  const isSelected = categoriesSelected.includes(label);
+const SelectableBox = (props: SelectableBoxProps): React.JSX.Element => {
+  const isSelected = props.categoriesSelected.includes(props.label);
   const theme = useTheme();
   const animatedValue = useRef(new Animated.Value(0)).current;
 
@@ -22,7 +17,7 @@ const SelectableBox = ({ label, categoriesSelected, onToggle }: SelectableBoxPro
       duration: 300,
       useNativeDriver: false,
     }).start();
-  }, [categoriesSelected]);
+  }, [props.categoriesSelected]);
 
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],
@@ -30,7 +25,7 @@ const SelectableBox = ({ label, categoriesSelected, onToggle }: SelectableBoxPro
   });
 
   const handleToggle = () => {
-    onToggle(label);
+    props.onToggle(props.label);
   };
 
   return (
@@ -44,7 +39,7 @@ const SelectableBox = ({ label, categoriesSelected, onToggle }: SelectableBoxPro
               : theme.colors.textColor,
           }}
         >
-          {label}
+          {props.label}
         </Text>
       </Container>
     </RNSelectableBox>

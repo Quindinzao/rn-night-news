@@ -14,76 +14,59 @@ import { View } from 'react-native';
 import Text from '../Text';
 import YellowBookmarkActive from '../../assets/svg/YellowBookmarkActive';
 import YellowBookmark from '../../assets/svg/YellowBookmark';
+import { ItemCardProps } from '../../interfaces/ItemCardProps';
 
-type ItemCardProps = {
-  itemCardType: 'carousel' | 'verticalList' | 'horizontalList' | 'favorites';
-  urlToImage: string;
-  title: string;
-  description: string;
-  sourceName: string;
-  publishedAt: string;
-  isFavorite: boolean;
-}
-
-const ItemCard = ({
-  itemCardType,
-  urlToImage,
-  title,
-  description,
-  sourceName,
-  publishedAt,
-  isFavorite,
-} : ItemCardProps): React.JSX.Element => {
+const ItemCard = (props: ItemCardProps): React.JSX.Element => {
   return (
-    <RNItemCard itemCardType={itemCardType} activeOpacity={0.7}>
-      <HeaderCard itemCardType={itemCardType}>
-        <HeaderImageCard itemCardType={itemCardType} source={{ uri: urlToImage }} />
+    <RNItemCard itemCardType={props.itemCardType} activeOpacity={0.7}>
+      <HeaderCard itemCardType={props.itemCardType}>
+        <HeaderImageCard itemCardType={props.itemCardType} source={{ uri: props.urlToImage }} />
         <Overlay colors={['rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0.7)']} />
-        {(itemCardType === 'carousel' || itemCardType === 'favorites') &&
+        {(props.itemCardType === 'carousel' || props.itemCardType === 'favorites') &&
           (
-            <HeaderTitleCard itemCardType={itemCardType}>
-              <Text textType="titleMedium" numberOfLines={5}>{title}</Text>
+            <HeaderTitleCard itemCardType={props.itemCardType}>
+              <Text textType="titleMedium" numberOfLines={5}>{props.title}</Text>
             </HeaderTitleCard>
           )
         }
-        {itemCardType === 'favorites' && (
+        {props.itemCardType === 'favorites' && (
           <FavoriteFlag activeOpacity={0.7}>
-            {isFavorite ? <YellowBookmarkActive /> : <YellowBookmark />}
+            {props.isFavorite ? <YellowBookmarkActive /> : <YellowBookmark />}
           </FavoriteFlag>
         )}
       </HeaderCard>
-      <BodyCard itemCardType={itemCardType}>
+      <BodyCard itemCardType={props.itemCardType}>
         <View>
-          {(itemCardType === 'verticalList' || itemCardType === 'horizontalList') &&
+          {(props.itemCardType === 'verticalList' || props.itemCardType === 'horizontalList') &&
             (
               <Text
                 textType="titleRegular"
                 ellipsizeMode="tail"
-                numberOfLines={itemCardType === 'horizontalList' ? 2 : 1}
+                numberOfLines={props.itemCardType === 'horizontalList' ? 2 : 1}
               >
-                {title}
+                {props.title}
               </Text>
             )
           }
-          {itemCardType !== 'horizontalList' &&
+          {props.itemCardType !== 'horizontalList' &&
             <Description
-              itemCardType={itemCardType}
-              textType={itemCardType === 'verticalList' ? 'bodySmall' : 'bodyLarge'}
+              itemCardType={props.itemCardType}
+              textType={props.itemCardType === 'verticalList' ? 'bodySmall' : 'bodyLarge'}
               numberOfLines={3}
             >
-              {description}
+              {props.description}
             </Description>
           }
         </View>
         {
           <Row>
-            {itemCardType === 'verticalList' && <Text textType={'captionSmall'} numberOfLines={3}>{sourceName}</Text>}
-            {(itemCardType === 'verticalList' || itemCardType === 'horizontalList') &&
+            {props.itemCardType === 'verticalList' && <Text textType={'captionSmall'} numberOfLines={3}>{props.sourceName}</Text>}
+            {(props.itemCardType === 'verticalList' || props.itemCardType === 'horizontalList') &&
               <Text
                 textType={'captionSmallItalic'}
                 numberOfLines={3}
               >
-                {new Date(publishedAt).toLocaleDateString('en-US')}
+                {new Date(props.publishedAt).toLocaleDateString('en-US')}
               </Text>
             }
           </Row>

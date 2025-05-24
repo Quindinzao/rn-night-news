@@ -1,19 +1,14 @@
 import React from 'react';
 import { RNHeader, ImageHeader, StyledLogo } from './styles';
 import Text from '../Text';
-import { ImageSourcePropType } from 'react-native';
+import { HeaderProps } from '../../interfaces/HeaderProps';
 
-type HeaderProps = {
-  title: string;
-  imageStr: ImageSourcePropType;
-};
-
-const Header = ({ title, imageStr }: HeaderProps): React.JSX.Element => {
+const Header = (props: HeaderProps): React.JSX.Element => {
   return (
     <RNHeader>
-      <ImageHeader source={imageStr} />
+      <ImageHeader source={props.imageStr} />
       <StyledLogo />
-      <Text textType="titleLarge">{title}</Text>
+      <Text textType="titleLarge">{props.title}</Text>
     </RNHeader>
   );
 };
