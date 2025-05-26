@@ -6,10 +6,17 @@ import { ItemCardStyledProps } from '../../interfaces/ItemCardProps';
 
 const layout = getLayoutByType();
 
-export const RNItemCard = styled.TouchableOpacity<ItemCardStyledProps>`
+export const RNItemCard = styled.View<ItemCardStyledProps>`
+  align-items: center;
+
   height: ${({ itemCardType }) => layout.RNItemCard.height[itemCardType]};
   width: ${({ itemCardType }) => layout.RNItemCard.width[itemCardType]};
-  flex-direction:  ${({ itemCardType }) => layout.RNItemCard.flexDirection[itemCardType]};
+`;
+
+export const TouchableItemCard = styled.TouchableOpacity<ItemCardStyledProps>`
+  height: 100%;
+  width: ${({ itemCardType }) => layout.TouchableItemCard.width[itemCardType]};
+  flex-direction:  ${({ itemCardType }) => layout.TouchableItemCard.flexDirection[itemCardType]};
   background-color: ${({ theme }) => theme.colors.primaryColor};
   border-radius: ${({ theme }) => theme.borderRadius.lg}px;
 `;

@@ -1,5 +1,7 @@
-
+import { Dimensions } from 'react-native';
 import { theme } from './theme';
+
+const SCREEN_WIDTH = Dimensions.get('screen').width;
 
 export const getLayoutByType = () => ({
   RNItemCard: {
@@ -11,6 +13,21 @@ export const getLayoutByType = () => ({
     },
     width: {
       carousel: '100%',
+      verticalList: '100%',
+      horizontalList: '250px',
+      favorites: '100%',
+    },
+  },
+
+  TouchableItemCard: {
+    height: {
+      carousel: '405px',
+      verticalList: '144px',
+      horizontalList: '258px',
+      favorites: '331px',
+    },
+    width: {
+      carousel: String(SCREEN_WIDTH - 32) + 'px',
       verticalList: '100%',
       horizontalList: '250px',
       favorites: '100%',
@@ -73,7 +90,7 @@ export const getLayoutByType = () => ({
 
   Description: {
     marginTop: {
-      carousel: theme.spacing.lg + 'px',
+      carousel: 0,
       verticalList: theme.spacing.sm + 'px',
       horizontalList: theme.spacing.md + 'px',
       favorites: theme.spacing.md + 'px',
