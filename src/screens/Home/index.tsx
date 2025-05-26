@@ -1,9 +1,9 @@
-import { Body, Container } from './styles';
+import { Container } from './styles';
 import Header from '../../components/Header';
 import ItemCard from '../../components/ItemCard';
 import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated-carousel';
 import { useSharedValue } from 'react-native-reanimated';
-import { Dimensions } from 'react-native';
+import { Dimensions, FlatList } from 'react-native';
 import { useRef } from 'react';
 import { useTheme } from 'styled-components/native';
 
@@ -41,13 +41,7 @@ const Home = (): React.JSX.Element => {
     },
   };
 
-  const defaultDataWith6Colors = [
-    '#B0604D',
-    '#899F9C',
-    '#B3C680',
-    '#5C6265',
-    '#F1F1F1',
-  ];
+  const defaultList = [0, 1, 2, 3, 4, 5];
 
   const ref = useRef<ICarouselInstance>(null);
   const onPressPagination = (index: number) => {
@@ -68,30 +62,49 @@ const Home = (): React.JSX.Element => {
     );
   };
 
+  const itemList = () => {
+    return (
+      <ItemCard
+        itemCardType={'verticalList'}
+        urlToImage={'https://gizmodo.com/app/uploads/2024/12/Tile.jpg'}
+        title={'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included'}
+        description={'For a limited time, you can get this four-pack of Tile trackers at all-time low price on Amazon.'}
+        sourceName={'Gizmodo.com'}
+        publishedAt={'2025-05-21T12:14:49Z'}
+        isFavorite={false}
+      />
+    );
+  };
+
   return (
     <Container>
-      <Header
-        title={'News for your\nInsomnia'}
-        imageStr={require('../../assets/images/imgScreen1.png')}
+      <FlatList
+        data={defaultList}
+        renderItem={itemList}
+        ListHeaderComponent={
+          <>
+            <Header
+              title={'News for your\nInsomnia'}
+              imageStr={require('../../assets/images/imgScreen1.png')}
+            />
+            <Carousel
+              ref={ref}
+              {...baseOptions}
+              loop
+              onProgressChange={progress}
+              data={defaultList}
+              renderItem={itemCarousel}
+            />
+
+            <Pagination.Basic
+              {...paginationBasicStyle}
+              progress={progress}
+              data={defaultList}
+              onPress={onPressPagination}
+            />
+        </>
+        }
       />
-      <Body>
-
-        <Carousel
-					ref={ref}
-					{...baseOptions}
-					loop
-					onProgressChange={progress}
-					data={defaultDataWith6Colors}
-					renderItem={itemCarousel}
-				/>
-        <Pagination.Basic
-          {...paginationBasicStyle}
-          progress={progress}
-          data={defaultDataWith6Colors}
-          onPress={onPressPagination}
-        />
-
-      </Body>
     </Container>
   );
 };

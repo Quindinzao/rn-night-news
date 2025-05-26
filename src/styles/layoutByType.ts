@@ -28,7 +28,7 @@ export const getLayoutByType = () => ({
     },
     width: {
       carousel: String(SCREEN_WIDTH - 32) + 'px',
-      verticalList: '100%',
+      verticalList: String(SCREEN_WIDTH - 32) + 'px',
       horizontalList: '250px',
       favorites: '100%',
     },

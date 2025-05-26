@@ -5,10 +5,10 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.backgroundAppColor};
 `;
 
-export const Body = styled.View`
-  justify-content: flex-start;
-  align-items: center;
+export const BodyFlatList = styled.FlatList`
+  /* justify-content: flex-start;
+  align-items: center; */
 
-  padding-right: ${({ theme }) => theme.spacing.md};
-  padding-left: ${({ theme }) => theme.spacing.md};
+  /* padding-right: ${({ theme }) => theme.spacing.md};
+  padding-left: ${({ theme }) => theme.spacing.md}; */
 `;
