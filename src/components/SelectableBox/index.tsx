@@ -4,7 +4,7 @@ import { useTheme } from 'styled-components/native';
 import { RNSelectableBox, Container } from './styles';
 import Text from '../Text';
 import { Animated } from 'react-native';
-import { SelectableBoxProps } from '../../interfaces/SelectableBox';
+import { SelectableBoxProps } from '../../interfaces/SelectableBoxProps';
 
 const SelectableBox = (props: SelectableBoxProps): React.JSX.Element => {
   const isSelected = props.categoriesSelected.includes(props.label);

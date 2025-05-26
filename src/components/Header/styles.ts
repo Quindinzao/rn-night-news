@@ -2,20 +2,20 @@ import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
 import Logo from '../../assets/svg/Logo';
 
-const SCREEN_WIDTH = Dimensions.get('screen').width;
+const WIDTH_SCREEN = Dimensions.get('screen').width;
 
 export const RNHeader = styled.View`
   justify-content: flex-end;
   align-items: flex-start;
 
-  width: ${SCREEN_WIDTH}px;
-  height: ${SCREEN_WIDTH}px;
+  width: ${WIDTH_SCREEN}px;
+  height: ${WIDTH_SCREEN}px;
   padding: 32px 24px;
 `;
 
 export const ImageHeader = styled.Image`
-  width: ${SCREEN_WIDTH}px;
-  height: ${SCREEN_WIDTH}px;
+  width: ${WIDTH_SCREEN}px;
+  height: ${WIDTH_SCREEN}px;
 
   position: absolute;
   left: 0;

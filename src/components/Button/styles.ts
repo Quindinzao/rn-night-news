@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { ButtonStyleProps } from '../../interfaces/ButtonProps';
+import { theme as shadowColor } from '../../styles/theme';
 
 export const RNButton = styled.TouchableOpacity<ButtonStyleProps>`
   background-color: ${({ theme }) => theme.colors.primaryColor};
@@ -13,7 +14,7 @@ export const RNButton = styled.TouchableOpacity<ButtonStyleProps>`
 
 RNButton.defaultProps = {
   style: {
-    shadowColor: '#000',
+    shadowColor: shadowColor.colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 4,

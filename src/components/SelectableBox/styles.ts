@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Animated } from 'react-native';
+import { theme as shadowColor } from '../../styles/theme';
 
 export const RNSelectableBox = styled(Animated.View)`
   border-radius: ${({ theme }) => theme.borderRadius.sm}px;
@@ -22,7 +23,7 @@ export const Container = styled.Pressable`
 
 RNSelectableBox.defaultProps = {
   style: {
-    shadowColor: '#000',
+    shadowColor: shadowColor.colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 4,

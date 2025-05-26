@@ -3,13 +3,25 @@ import Text from '../../components/Text';
 
 export const Container = styled.View`
   flex: 1;
+
   background-color: ${({ theme }) => theme.colors.secondaryColor};
 `;
 
+export const Row = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  margin-top: ${({ theme }) => theme.spacing.lg}px;
+  margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+`;
+
 export const TextVariant = styled(Text)`
+  width: 100%;
+
   padding-top: ${({ theme }) => theme.spacing.lg}px;
   padding-bottom: ${({ theme }) => theme.spacing.md}px;
-  width: 100%;
 `;
 
 export const SearchFlatList = styled.FlatList.attrs(({ theme }) => ({
@@ -21,14 +33,46 @@ export const SearchFlatList = styled.FlatList.attrs(({ theme }) => ({
   },
 }))``;
 
-export const SearchListScrollView = styled.ScrollView.attrs({
+export const ItemCardScrollView = styled.ScrollView.attrs(({ theme }) => ({
   contentContainerStyle: {
-    gap: 16,
+    gap: theme.spacing.md,
   },
   horizontal: true,
   showsHorizontalScrollIndicator: false,
-})``;
+}))``;
+
+export const CategoryScrollView = styled.ScrollView.attrs(({ theme }) => ({
+  contentContainerStyle: {
+    gap: theme.spacing.xs,
+  },
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+}))``;
 
 export const Separator = styled.View`
   height: 16px;
+`;
+
+export const ModalContent = styled.ScrollView`
+  height: 90%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+
+  background-color: ${({ theme }) => theme.colors.secondaryColor};
+  border-radius: ${({ theme }) => theme.borderRadius.lg}px;
+  padding-right: ${({ theme }) => theme.spacing.lg}px;
+  padding-left: ${({ theme }) => theme.spacing.lg}px;
+`;
+
+export const CloseButton = styled.TouchableOpacity`
+  padding: ${({ theme }) => theme.spacing.sm}px;
+  border-radius: ${({ theme }) => theme.borderRadius.md}px;
+`;
+
+export const CategoriesMosaic = styled.View`
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  margin-top: ${({ theme }) => theme.spacing.xl}px;
 `;

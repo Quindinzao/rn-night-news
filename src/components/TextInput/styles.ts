@@ -1,11 +1,12 @@
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
+import { theme as shadowColor } from '../../styles/theme';
 
 const WIDTH_SCREEN = Dimensions.get('screen').width;
 
 export const RNTextInput = styled.TextInput`
   height: 54px;
-  width: ${WIDTH_SCREEN - 32}px;
+  width: ${WIDTH_SCREEN - 92};
 
   border-radius: ${({ theme }) => theme.borderRadius.sm}px;
   background-color: ${({ theme }) => theme.colors.primaryColor};
@@ -16,7 +17,7 @@ export const RNTextInput = styled.TextInput`
 
 RNTextInput.defaultProps = {
   style: {
-    shadowColor: '#000',
+    shadowColor: shadowColor.colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 4,

@@ -10,11 +10,11 @@ import { ItemCardProps } from '../../interfaces/ItemCardProps';
 
 const Home = (): React.JSX.Element => {
   const theme = useTheme();
-  const SCREEN_WIDTH = Dimensions.get('screen').width;
+  const WIDTH_SCREEN = Dimensions.get('screen').width;
   const progress = useSharedValue<number>(0);
 	const baseOptions = {
 		vertical: false,
-		width: SCREEN_WIDTH,
+		width: WIDTH_SCREEN,
     height: 405,
     marginLeft: 16,
     marginRight: 16,
