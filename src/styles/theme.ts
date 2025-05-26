@@ -4,10 +4,11 @@ const ios = Platform.OS === 'ios';
 
 export const theme = {
   colors: {
-    backgroundAppColor: '#101517',
+    black: '#000000',
+    secondaryColor: '#101517',
     primaryColor: '#1A2428',
-    textColor: '#CCCCCC',
-    titleColor: '#FFFFFF',
+    gray: '#CCCCCC',
+    white: '#FFFFFF',
   },
 
   spacing: {

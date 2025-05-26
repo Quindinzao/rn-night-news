@@ -1,4 +1,13 @@
+import { ReactNode } from 'react';
+
+export type TypeButton = 'icon' | 'text'
+
+export interface ButtonStyleProps {
+  typeButton: TypeButton;
+}
+
 export interface ButtonProps {
   onPress: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
+  typeButton: TypeButton
 }

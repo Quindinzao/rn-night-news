@@ -2,22 +2,23 @@ import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
 import Logo from '../../assets/svg/Logo';
 
-const { width: widthScreen } = Dimensions.get('window');
+const SCREEN_WIDTH = Dimensions.get('screen').width;
 
 export const RNHeader = styled.View`
   justify-content: flex-end;
   align-items: flex-start;
 
-  width: ${widthScreen}px;
-  height: ${widthScreen}px;
+  width: ${SCREEN_WIDTH}px;
+  height: ${SCREEN_WIDTH}px;
   padding: 32px 24px;
 `;
 
 export const ImageHeader = styled.Image`
-  width: ${widthScreen}px;
-  height: ${widthScreen}px;
+  width: ${SCREEN_WIDTH}px;
+  height: ${SCREEN_WIDTH}px;
 
   position: absolute;
+  left: 0;
 `;
 
 export const StyledLogo = styled(Logo).attrs({

@@ -53,7 +53,9 @@ const FavoriteCategories = (): React.JSX.Element => {
         </Content>
       </View>
       <ContentButton>
-        <Button onPress={() => console.log('Button')}>Save</Button>
+        <Button onPress={() => console.log('Button')} typeButton="text">
+          <Text textType="bodyMedium">Save</Text>
+        </Button>
       </ContentButton>
     </Container>
   );

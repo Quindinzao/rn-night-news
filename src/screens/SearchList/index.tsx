@@ -1,52 +1,11 @@
-import { Container, HomeFlatList, Separator, TextVariant } from './styles';
+import { Container, SearchFlatList, SearchListScrollView, Separator, TextVariant } from './styles';
 import Header from '../../components/Header';
 import ItemCard from '../../components/ItemCard';
-import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated-carousel';
-import { useSharedValue } from 'react-native-reanimated';
-import { Dimensions } from 'react-native';
-import { useRef } from 'react';
-import { useTheme } from 'styled-components/native';
 import { ItemCardProps } from '../../interfaces/ItemCardProps';
+import TextInput from '../../components/TextInput';
 
-const Home = (): React.JSX.Element => {
-  const theme = useTheme();
-  const SCREEN_WIDTH = Dimensions.get('screen').width;
-  const progress = useSharedValue<number>(0);
-	const baseOptions = {
-		vertical: false,
-		width: SCREEN_WIDTH,
-    height: 405,
-    marginLeft: 16,
-    marginRight: 16,
-    alignItem: 'center',
-    justifyContent: 'center',
-	} as const;
-
-  const paginationBasicStyle = {
-    dotStyle: {
-      marginTop: -38,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.colors.gray,
-      borderStyle: 'solid' as 'solid',
-      width: 12,
-      height: 12,
-    },
-    activeDotStyle: {
-      backgroundColor: theme.colors.gray,
-    },
-    containerStyle: {
-      gap: 16,
-      borderRadius: 12,
-    },
-  };
-
+const SearchList = (): React.JSX.Element => {
   const defaultList = [0, 1, 2, 3, 4, 5];
-
-  const ref = useRef<ICarouselInstance>(null);
-  const onPressPagination = (index: number) => {
-    ref.current?.scrollTo({ index });
-	};
 
   const separator = () => <Separator />;
   const renderItemCard = (props: ItemCardProps) => {
@@ -65,7 +24,7 @@ const Home = (): React.JSX.Element => {
 
   return (
     <Container>
-      <HomeFlatList
+      <SearchFlatList
         data={defaultList}
         renderItem={() => renderItemCard({
           itemCardType: 'verticalList',
@@ -81,31 +40,21 @@ const Home = (): React.JSX.Element => {
           <>
             <Header
               title={'News for your\nInsomnia'}
-              imageStr={require('../../assets/images/imgScreen1.png')}
+              imageStr={require('../../assets/images/imgScreen2.png')}
             />
+            <TextInput />
             <TextVariant textType="titleSmall">Favorites categories</TextVariant>
-            <Carousel
-              ref={ref}
-              {...baseOptions}
-              loop
-              onProgressChange={progress}
-              data={defaultList}
-              renderItem={() => renderItemCard({
-                itemCardType: 'carousel',
+            <SearchListScrollView>
+              {defaultList.map(() => renderItemCard({
+                itemCardType: 'horizontalList',
                 urlToImage: 'https://gizmodo.com/app/uploads/2024/12/Tile.jpg',
                 title: 'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included',
                 description: 'For a limited time, you can get this four-pack of Tile trackers at all-time low price on Amazon.',
                 sourceName: 'Gizmodo.com',
                 publishedAt: '2025-05-21T12:14:49Z',
                 isFavorite: false,
-              })}
-            />
-            <Pagination.Basic
-              {...paginationBasicStyle}
-              progress={progress}
-              data={defaultList}
-              onPress={onPressPagination}
-            />
+              }))}
+            </SearchListScrollView>
             <TextVariant textType="titleSmall">News</TextVariant>
         </>
         }
@@ -114,4 +63,4 @@ const Home = (): React.JSX.Element => {
   );
 };
 
-export default Home;
+export default SearchList;

@@ -8,7 +8,7 @@ export const Container = styled.ScrollView.attrs(() => ({
   },
 }))`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.backgroundAppColor};
+  background-color: ${({ theme }) => theme.colors.secondaryColor};
   padding-left: ${({ theme }) => theme.spacing.md}px;
   padding-right: ${({ theme }) => theme.spacing.md}px;
 `;

@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 import Text from '../Text';
 import { getLayoutByType } from '../../styles/layoutByType';
 import { ItemCardStyledProps } from '../../interfaces/ItemCardProps';
+import { theme as shadowColor } from '../../styles/theme';
 
 const layout = getLayoutByType();
 
@@ -15,6 +16,7 @@ export const RNItemCard = styled.View<ItemCardStyledProps>`
 
 export const TouchableItemCard = styled.TouchableOpacity<ItemCardStyledProps>`
   height: 100%;
+
   width: ${({ itemCardType }) => layout.TouchableItemCard.width[itemCardType]};
   flex-direction:  ${({ itemCardType }) => layout.TouchableItemCard.flexDirection[itemCardType]};
   background-color: ${({ theme }) => theme.colors.primaryColor};
@@ -70,9 +72,9 @@ export const FavoriteFlag = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 
-  border-bottom-left-radius: ${({ theme }) => theme.borderRadius.md};
-  border-bottom-right-radius: ${({ theme }) => theme.borderRadius.md};
-  background-color: ${({ theme }) => theme.colors.backgroundAppColor};
+  border-bottom-left-radius: ${({ theme }) => theme.borderRadius.md}px;
+  border-bottom-right-radius: ${({ theme }) => theme.borderRadius.md}px;
+  background-color: ${({ theme }) => theme.colors.secondaryColor};
   right: ${({ theme }) => theme.spacing.md}px;
 `;
 
@@ -99,7 +101,7 @@ export const Description = styled(Text)<ItemCardStyledProps>`
 
 RNItemCard.defaultProps = {
   style: {
-    shadowColor: '#000',
+    shadowColor: shadowColor.colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 4,

@@ -21,7 +21,7 @@ const SelectableBox = (props: SelectableBoxProps): React.JSX.Element => {
 
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [theme.colors.primaryColor, theme.colors.textColor],
+    outputRange: [theme.colors.primaryColor, theme.colors.gray],
   });
 
   const handleToggle = () => {
@@ -35,8 +35,8 @@ const SelectableBox = (props: SelectableBoxProps): React.JSX.Element => {
           textType="bodyMedium"
           style={{
             color: isSelected
-              ? theme.colors.backgroundAppColor
-              : theme.colors.textColor,
+              ? theme.colors.secondaryColor
+              : theme.colors.gray,
           }}
         >
           {props.label}

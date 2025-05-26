@@ -7,12 +7,12 @@ export const Container = styled.View`
 `;
 
 export const TextVariant = styled(Text)`
-  width: 100%;
   padding-top: ${({ theme }) => theme.spacing.lg}px;
   padding-bottom: ${({ theme }) => theme.spacing.md}px;
+  width: 100%;
 `;
 
-export const HomeFlatList = styled.FlatList.attrs(({ theme }) => ({
+export const SearchFlatList = styled.FlatList.attrs(({ theme }) => ({
   contentContainerStyle: {
     paddingHorizontal: theme.spacing.md,
   },
@@ -20,6 +20,14 @@ export const HomeFlatList = styled.FlatList.attrs(({ theme }) => ({
     alignItems: 'center',
   },
 }))``;
+
+export const SearchListScrollView = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    gap: 16,
+  },
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+})``;
 
 export const Separator = styled.View`
   height: 16px;
