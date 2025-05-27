@@ -7,6 +7,10 @@ import { Dimensions } from 'react-native';
 import { useRef } from 'react';
 import { useTheme } from 'styled-components/native';
 import { ItemCardProps } from '../../interfaces/ItemCardProps';
+// import axios from 'axios';
+
+// const API_KEY = 'bc47b077b67b483999a861cf063cdc0d';
+// const API_URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
 
 const Home = (): React.JSX.Element => {
   const theme = useTheme();
@@ -62,6 +66,27 @@ const Home = (): React.JSX.Element => {
       />
     );
   };
+
+  // const [articles, setArticles] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   const fetchNews = async () => {
+  //       try {
+  //           const response = await axios.get(API_URL);
+  //           Alert.alert('response:', JSON.stringify(response));
+  //           setArticles(response.data.articles);
+  //       } catch (e) {
+  //           setError('Failed to load news articles');
+  //           console.error(e);
+  //       } finally {
+  //           setLoading(false);
+  //       }
+  //   };
+
+  //   fetchNews();
+  // }, []);
 
   return (
     <Container>
