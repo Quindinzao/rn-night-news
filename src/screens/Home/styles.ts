@@ -4,6 +4,7 @@ import Text from '../../components/Text';
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.secondaryColor};
+  padding-bottom: ${({ theme }) => theme.spacing.xxl};
 `;
 
 export const TextVariant = styled(Text)`
