@@ -31,7 +31,7 @@ const ItemCard = (props: ItemCardProps): React.JSX.Element => {
       <TouchableItemCard itemCardType={props.itemCardType} activeOpacity={0.7}>
         <HeaderCard itemCardType={props.itemCardType}>
           <HeaderImageCard itemCardType={props.itemCardType} source={{ uri: props.urlToImage }} />
-          <Overlay colors={['rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0.7)']} />
+          <Overlay itemCardType={props.itemCardType} colors={['rgba(0, 0, 0, 0.3)', 'rgba(0, 0, 0, 0.7)']} />
           {(props.itemCardType === 'carousel' || props.itemCardType === 'favorites') &&
             (
               <HeaderTitleCard itemCardType={props.itemCardType}>

@@ -49,7 +49,7 @@ export const HeaderImageCard = styled.Image<ItemCardStyledProps>`
   border-top-left-radius: ${({ theme }) => theme.borderRadius.lg}px;
 `;
 
-export const Overlay = styled(LinearGradient).attrs({
+export const Overlay = styled(LinearGradient).attrs<ItemCardStyledProps>({
   start: { x: 0.5, y: 0 },
   end: { x: 0.5, y: 1 },
 })`
@@ -60,6 +60,10 @@ export const Overlay = styled(LinearGradient).attrs({
   right: 0;
   bottom: 0;
   left: 0;
+
+  border-bottom-left-radius: ${({ itemCardType }) => layout.HeaderImageCard.borderBottomLeftRadius[itemCardType]};
+  border-top-right-radius: ${({ itemCardType }) => layout.HeaderImageCard.borderBottomRightRadius[itemCardType]};
+  border-top-left-radius: ${({ theme }) => theme.borderRadius.lg}px;
 `;
 
 export const HeaderTitleCard = styled.View<ItemCardStyledProps>`

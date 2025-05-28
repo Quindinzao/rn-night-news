@@ -7,7 +7,7 @@ import { theme as shadowColor } from '../../styles/theme';
 
 const WIDTH_SCREEN = Dimensions.get('screen').width;
 
-export const RNTextInput = styled.TextInput`
+export const RNTextField = styled.TextInput`
   height: 54px;
   width: ${WIDTH_SCREEN - 92};
 
@@ -18,7 +18,7 @@ export const RNTextInput = styled.TextInput`
   font-size: 16px;
 `;
 
-RNTextInput.defaultProps = {
+RNTextField.defaultProps = {
   style: {
     shadowColor: shadowColor.colors.black,
     shadowOffset: { width: 0, height: 4 },

@@ -7,7 +7,7 @@ import Header from '../../components/Header';
 import ItemCard from '../../components/ItemCard';
 import Button from '../../components/Button';
 import Text from '../../components/Text';
-import TextInput from '../../components/TextInput';
+import TextField from '../../components/TextField';
 import SelectableBox from '../../components/SelectableBox';
 
 // Interfaces
@@ -97,7 +97,7 @@ const SearchList = (): React.JSX.Element => {
               imageStr={require('../../assets/images/imgScreen2.png')}
             />
             <Row>
-              <TextInput />
+              <TextField />
               <Button typeButton="icon" onPress={openModal}>
                 <Filter />
               </Button>
@@ -107,7 +107,7 @@ const SearchList = (): React.JSX.Element => {
                 return <SelectableBox key={index} label={item} onToggle={handleCategoryPress} categoriesSelected={categoriesSelected} />;
               })}
             </CategoryScrollView>
-            <TextVariant textType="titleSmall">Favorites categories</TextVariant>
+            <TextVariant textType="titleSmall">Breaking news</TextVariant>
             <ItemCardScrollView>
               {defaultList.map((_, index) => renderItemCard({
                 itemCardType: 'horizontalList',

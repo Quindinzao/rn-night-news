@@ -73,6 +73,21 @@ export const getLayoutByType = () => ({
     },
   },
 
+  Overlay: {
+    borderBottomLeftRadius: {
+      carousel: '0',
+      verticalList: theme.borderRadius.lg + 'px',
+      horizontalList: '0',
+      favorites: '0',
+    },
+    borderBottomRightRadius: {
+      carousel: theme.borderRadius.lg + 'px',
+      verticalList: '0',
+      horizontalList: theme.borderRadius.lg + 'px',
+      favorites: theme.borderRadius.lg + 'px',
+    },
+  },
+
   HeaderTitleCard: {
     paddingBottom: {
       carousel: theme.spacing.md + 'px',
