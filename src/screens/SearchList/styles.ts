@@ -50,32 +50,12 @@ export const CategoryScrollView = styled.ScrollView.attrs(({ theme }) => ({
   },
   horizontal: true,
   showsHorizontalScrollIndicator: false,
-}))``;
+}))`
+
+  width: 100%;
+  background-color: 'red';
+`;
 
 export const Separator = styled.View`
   height: 16px;
-`;
-
-export const ModalContent = styled.ScrollView`
-  height: 90%;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-
-  background-color: ${({ theme }) => theme.colors.secondaryColor};
-  border-radius: ${({ theme }) => theme.borderRadius.lg}px;
-  padding-right: ${({ theme }) => theme.spacing.lg}px;
-  padding-left: ${({ theme }) => theme.spacing.lg}px;
-`;
-
-export const CloseButton = styled.TouchableOpacity`
-  padding: ${({ theme }) => theme.spacing.sm}px;
-  border-radius: ${({ theme }) => theme.borderRadius.md}px;
-`;
-
-export const CategoriesMosaic = styled.View`
-  flex-wrap: wrap;
-  flex-direction: row;
-  width: 100%;
-  margin-top: ${({ theme }) => theme.spacing.xl}px;
 `;

@@ -1,14 +1,13 @@
 // External Libraries
 import { useState } from 'react';
-import { Modal } from 'react-native';
 
 // Components
 import Header from '../../components/Header';
 import ItemCard from '../../components/ItemCard';
 import Button from '../../components/Button';
-import Text from '../../components/Text';
 import TextField from '../../components/TextField';
 import SelectableBox from '../../components/SelectableBox';
+import ModalCategories from '../../components/ModalCategories';
 
 // Interfaces
 import { ItemCardProps } from '../../interfaces/ItemCardProps';
@@ -22,21 +21,16 @@ import {
   Separator,
   TextVariant,
   CategoryScrollView,
-  ModalContent,
-  CloseButton,
-  CategoriesMosaic,
 } from './styles';
 
 // Assets
 import Filter from '../../assets/svg/Filter';
-import Close from '../../assets/svg/Close';
 
 const SearchList = (): React.JSX.Element => {
   const defaultList = [0, 1, 2, 3, 4, 5];
   const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const openModal = () => setIsModalVisible(true);
-  const closeModal = () => setIsModalVisible(false);
 
   const handleCategoryPress = (category: string) => {
     if (categoriesSelected.includes(category)) {
@@ -123,26 +117,14 @@ const SearchList = (): React.JSX.Element => {
         </>
         }
       />
-      <Modal
-        animationType="slide"
-        transparent
-        visible={isModalVisible}
-        onRequestClose={closeModal}
-      >
-        <ModalContent>
-          <Row>
-            <Text textType="titleLarge">Filter by categories</Text>
-            <CloseButton onPress={closeModal}>
-              <Close />
-            </CloseButton>
-          </Row>
-          <CategoriesMosaic>
-            {newsCategories.map((item, index) => {
-              return <SelectableBox key={index} label={item} onToggle={handleCategoryPress} categoriesSelected={categoriesSelected} />;
-            })}
-          </CategoriesMosaic>
-        </ModalContent>
-      </Modal>
+      <ModalCategories
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        handleCategoryPress={handleCategoryPress}
+        newsCategories={newsCategories}
+        categoriesSelected={categoriesSelected}
+      />
+
     </Container>
   );
 };
