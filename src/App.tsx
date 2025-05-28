@@ -1,30 +1,32 @@
 // External Libraries
 import { useEffect } from 'react';
+import BootSplash from 'react-native-bootsplash';
 import { ThemeProvider } from 'styled-components/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import BootSplash from 'react-native-bootsplash';
 
-// Screens
-import Home from './screens/Home';
+// Routes
+import Routes from './routes';
 
 // Hooks
-import { useNewsLoader } from './hooks/useNewsLoader';
+// import { useNewsLoader } from './hooks/useNewsLoader';
 
 // Styles
 import { theme } from './styles/theme';
 
 const App = (): React.JSX.Element => {
 
-  const { data, loading, error } = useNewsLoader();
+  // const { data, loading, error } = useNewsLoader();
 
   useEffect(() => {
-    BootSplash.hide({ fade: true });
+    // if (!loading) {
+      BootSplash.hide({ fade: true });
+    // }
   }, []);
 
   return (
     <GestureHandlerRootView>
       <ThemeProvider theme={theme}>
-        <Home />
+        <Routes />
       </ThemeProvider>
     </GestureHandlerRootView>
   );

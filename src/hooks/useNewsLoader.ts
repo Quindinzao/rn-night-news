@@ -1,6 +1,5 @@
 // External Libraries
 import { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
 
 // .ENV
 import { API_KEY } from '@env';
@@ -36,25 +35,19 @@ export const useNewsLoader = () => {
       );
 
       await createTableEverything();
-      // Alert.alert('1:', JSON.stringify(apiData.articles));
       await insertEverythingMultipleNews(apiData.articles);
 
-      Alert.alert('Inserção Completa!');
       const sqliteData = await getEverythingNews();
-      Alert.alert('4:', JSON.stringify(sqliteData));
 
       setData(sqliteData as DataProps[]);
-      Alert.alert('Modo online', 'Dados carregados da API.');
 
     } catch (apiError: any) {
 
       try {
         const offlineData = await getEverythingNews();
         setData(offlineData as DataProps[]);
-        Alert.alert('Modo offline', JSON.stringify(offlineData));
       } catch (sqliteError: any) {
         setError(JSON.stringify(sqliteError));
-        Alert.alert('Erro', 'Falha ao carregar dados.');
       }
     } finally {
       setLoading(false);

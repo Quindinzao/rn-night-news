@@ -8,6 +8,7 @@ export const theme = {
     black: '#000000',
     secondaryColor: '#101517',
     primaryColor: '#1A2428',
+    placeholder: '#424b4f',
     gray: '#CCCCCC',
     white: '#FFFFFF',
   },

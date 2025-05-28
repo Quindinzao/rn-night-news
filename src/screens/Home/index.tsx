@@ -61,9 +61,10 @@ const Home = (): React.JSX.Element => {
 	};
 
   const separator = () => <Separator />;
-  const renderItemCard = (props: ItemCardProps) => {
+  const renderItemCard = (props: ItemCardProps, index: number) => {
     return (
       <ItemCard
+        key={index}
         itemCardType={props.itemCardType}
         urlToImage={props.urlToImage}
         title={props.title}
@@ -75,32 +76,11 @@ const Home = (): React.JSX.Element => {
     );
   };
 
-  // const [articles, setArticles] = useState([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   const fetchNews = async () => {
-  //       try {
-  //           const response = await axios.get(API_URL);
-  //           Alert.alert('response:', JSON.stringify(response));
-  //           setArticles(response.data.articles);
-  //       } catch (e) {
-  //           setError('Failed to load news articles');
-  //           console.error(e);
-  //       } finally {
-  //           setLoading(false);
-  //       }
-  //   };
-
-  //   fetchNews();
-  // }, []);
-
   return (
     <Container>
       <HomeFlatList
         data={defaultList}
-        renderItem={() => renderItemCard({
+        renderItem={({ index }) => renderItemCard({
           itemCardType: 'verticalList',
           urlToImage: 'https://gizmodo.com/app/uploads/2024/12/Tile.jpg',
           title: 'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included',
@@ -108,7 +88,7 @@ const Home = (): React.JSX.Element => {
           sourceName: 'Gizmodo.com',
           publishedAt: '2025-05-21T12:14:49Z',
           isFavorite: false,
-        })}
+        }, index)}
         ItemSeparatorComponent={separator}
         ListHeaderComponent={
           <>
@@ -123,15 +103,15 @@ const Home = (): React.JSX.Element => {
               loop
               onProgressChange={progress}
               data={defaultList}
-              renderItem={() => renderItemCard({
-                itemCardType: 'carousel',
-                urlToImage: 'https://gizmodo.com/app/uploads/2024/12/Tile.jpg',
-                title: 'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included',
-                description: 'For a limited time, you can get this four-pack of Tile trackers at all-time low price on Amazon.',
-                sourceName: 'Gizmodo.com',
-                publishedAt: '2025-05-21T12:14:49Z',
-                isFavorite: false,
-              })}
+              renderItem={({ index }) => renderItemCard({
+                  itemCardType: 'carousel',
+                  urlToImage: 'https://gizmodo.com/app/uploads/2024/12/Tile.jpg',
+                  title: 'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included',
+                  description: 'For a limited time, you can get this four-pack of Tile trackers at all-time low price on Amazon.',
+                  sourceName: 'Gizmodo.com',
+                  publishedAt: '2025-05-21T12:14:49Z',
+                  isFavorite: false,
+              }, index)}
             />
             <Pagination.Basic
               {...paginationBasicStyle}

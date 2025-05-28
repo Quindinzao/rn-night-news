@@ -33,16 +33,7 @@ import Close from '../../assets/svg/Close';
 
 const SearchList = (): React.JSX.Element => {
   const defaultList = [0, 1, 2, 3, 4, 5];
-  const [categoriesSelected, setCategoriesSelected] = useState<string[]>([
-    'World',
-    'Politics',
-    'Business',
-    'Technology',
-    'Science',
-    'Health',
-    'Travel',
-    'Crime',
-    'Economy']);
+  const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const openModal = () => setIsModalVisible(true);
   const closeModal = () => setIsModalVisible(false);
@@ -70,9 +61,10 @@ const SearchList = (): React.JSX.Element => {
   ];
 
   const separator = () => <Separator />;
-  const renderItemCard = (props: ItemCardProps) => {
+  const renderItemCard = (props: ItemCardProps, index: number) => {
     return (
       <ItemCard
+        key={index}
         itemCardType={props.itemCardType}
         urlToImage={props.urlToImage}
         title={props.title}
@@ -88,7 +80,7 @@ const SearchList = (): React.JSX.Element => {
     <Container>
       <SearchFlatList
         data={defaultList}
-        renderItem={() => renderItemCard({
+        renderItem={({ index }) => renderItemCard({
           itemCardType: 'verticalList',
           urlToImage: 'https://gizmodo.com/app/uploads/2024/12/Tile.jpg',
           title: 'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included',
@@ -96,12 +88,12 @@ const SearchList = (): React.JSX.Element => {
           sourceName: 'Gizmodo.com',
           publishedAt: '2025-05-21T12:14:49Z',
           isFavorite: false,
-        })}
+        }, index)}
         ItemSeparatorComponent={separator}
         ListHeaderComponent={
           <>
             <Header
-              title={'News for your\nInsomnia'}
+              title={'News for your\nBoredom'}
               imageStr={require('../../assets/images/imgScreen2.png')}
             />
             <Row>
@@ -117,7 +109,7 @@ const SearchList = (): React.JSX.Element => {
             </CategoryScrollView>
             <TextVariant textType="titleSmall">Favorites categories</TextVariant>
             <ItemCardScrollView>
-              {defaultList.map(() => renderItemCard({
+              {defaultList.map((_, index) => renderItemCard({
                 itemCardType: 'horizontalList',
                 urlToImage: 'https://gizmodo.com/app/uploads/2024/12/Tile.jpg',
                 title: 'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included',
@@ -125,7 +117,7 @@ const SearchList = (): React.JSX.Element => {
                 sourceName: 'Gizmodo.com',
                 publishedAt: '2025-05-21T12:14:49Z',
                 isFavorite: false,
-              }))}
+              }, index))}
             </ItemCardScrollView>
             <TextVariant textType="titleSmall">News</TextVariant>
         </>
