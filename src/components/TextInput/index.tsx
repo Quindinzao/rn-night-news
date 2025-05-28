@@ -1,4 +1,7 @@
+// External Libraries
 import { useTheme } from 'styled-components/native';
+
+// Styles
 import { RNTextInput } from './styles';
 
 const TextInput = () => {

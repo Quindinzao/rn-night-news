@@ -1,5 +1,8 @@
+// External Libraries
 import styled from 'styled-components/native';
-import { getTextVariants, TextVariant } from '../../styles/textVariantes';
+
+// Styles
+import { getTextVariants, TextVariant } from '../../styles/textVariants';
 
 type TextProps = {
   textType: TextVariant;

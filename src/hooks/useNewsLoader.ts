@@ -1,11 +1,20 @@
+// External Libraries
 import { useEffect, useState } from 'react';
-import { DataProps } from '../interfaces/DataProps';
-import { api } from '../services/newsApi';
+import { Alert } from 'react-native';
+
+// .ENV
 import { API_KEY } from '@env';
+
+// Database
 import { createTableEverything } from '../database/tables/everythingTable';
 import { insertEverythingMultipleNews } from '../database/queries/insertEverythingMultipleNews';
 import { getEverythingNews } from '../database/queries/getEverythingNews';
-import { Alert } from 'react-native';
+
+// Interfaces
+import { DataProps } from '../interfaces/DataProps';
+
+// Services
+import { api } from '../services/newsApi';
 
 export const useNewsLoader = () => {
   const [data, setData] = useState<DataProps[]>();

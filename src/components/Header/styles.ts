@@ -1,5 +1,8 @@
+// External Libraries
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
+
+// Assets
 import Logo from '../../assets/svg/Logo';
 
 const WIDTH_SCREEN = Dimensions.get('screen').width;

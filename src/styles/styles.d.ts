@@ -1,4 +1,7 @@
+// External Libraries
 import 'styled-components/native';
+
+// Styles
 import { theme } from './theme';
 
 type ThemeType = typeof theme;

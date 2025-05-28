@@ -1,4 +1,13 @@
-import React from 'react';
+// External Libraries
+import { View } from 'react-native';
+
+// Components
+import Text from '../Text';
+
+// Interfaces
+import { ItemCardProps } from '../../interfaces/ItemCardProps';
+
+// Styles
 import {
   BodyCard,
   Description,
@@ -11,11 +20,10 @@ import {
   Row,
   TouchableItemCard,
 } from './styles';
-import { View } from 'react-native';
-import Text from '../Text';
+
+// Assets
 import YellowBookmarkActive from '../../assets/svg/YellowBookmarkActive';
 import YellowBookmark from '../../assets/svg/YellowBookmark';
-import { ItemCardProps } from '../../interfaces/ItemCardProps';
 
 const ItemCard = (props: ItemCardProps): React.JSX.Element => {
   return (

@@ -1,10 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, useEffect } from 'react';
-import { useTheme } from 'styled-components/native';
-import { RNSelectableBox, Container } from './styles';
-import Text from '../Text';
+// External Libraries
+import { useRef, useEffect } from 'react';
 import { Animated } from 'react-native';
+import { useTheme } from 'styled-components/native';
+
+// Components
+import Text from '../Text';
+
+// Interfaces
 import { SelectableBoxProps } from '../../interfaces/SelectableBoxProps';
+
+// Styles
+import { RNSelectableBox, Container } from './styles';
 
 const SelectableBox = (props: SelectableBoxProps): React.JSX.Element => {
   const isSelected = props.categoriesSelected.includes(props.label);

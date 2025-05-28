@@ -1,8 +1,15 @@
+// External Libraries
 import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
+
+// Components
 import Text from '../Text';
-import { getLayoutByType } from '../../styles/layoutByType';
+
+// Interfaces
 import { ItemCardStyledProps } from '../../interfaces/ItemCardProps';
+
+// Styles
+import { getLayoutByType } from '../../styles/layoutByType';
 import { theme as shadowColor } from '../../styles/theme';
 
 const layout = getLayoutByType();

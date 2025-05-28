@@ -1,4 +1,7 @@
+// External Libraries
 import styled from 'styled-components/native';
+
+// Components
 import Text from '../../components/Text';
 
 export const Container = styled.View`

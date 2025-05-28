@@ -1,7 +1,11 @@
-import React from 'react';
-import { RNHeader, ImageHeader, StyledLogo } from './styles';
+// Components
 import Text from '../Text';
+
+// Interfaces
 import { HeaderProps } from '../../interfaces/HeaderProps';
+
+// Styles
+import { RNHeader, ImageHeader, StyledLogo } from './styles';
 
 const Header = (props: HeaderProps): React.JSX.Element => {
   return (

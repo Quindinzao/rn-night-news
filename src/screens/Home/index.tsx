@@ -1,16 +1,24 @@
-import { Container, HomeFlatList, Separator, TextVariant } from './styles';
+// External Libraries
+import { useRef } from 'react';
+import { Dimensions } from 'react-native';
+import { useTheme } from 'styled-components/native';
+import { useSharedValue } from 'react-native-reanimated';
+import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated-carousel';
+
+// Components
 import Header from '../../components/Header';
 import ItemCard from '../../components/ItemCard';
-import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated-carousel';
-import { useSharedValue } from 'react-native-reanimated';
-import { Dimensions } from 'react-native';
-import { useRef } from 'react';
-import { useTheme } from 'styled-components/native';
-import { ItemCardProps } from '../../interfaces/ItemCardProps';
-// import axios from 'axios';
 
-// const API_KEY = 'bc47b077b67b483999a861cf063cdc0d';
-// const API_URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
+// Interfaces
+import { ItemCardProps } from '../../interfaces/ItemCardProps';
+
+// Styles
+import {
+  Container,
+  HomeFlatList,
+  Separator,
+  TextVariant,
+} from './styles';
 
 const Home = (): React.JSX.Element => {
   const theme = useTheme();

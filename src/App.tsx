@@ -1,10 +1,17 @@
+// External Libraries
 import { useEffect } from 'react';
-import BootSplash from 'react-native-bootsplash';
 import { ThemeProvider } from 'styled-components/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { theme } from './styles/theme';
+import BootSplash from 'react-native-bootsplash';
+
+// Screens
 import Home from './screens/Home';
+
+// Hooks
 import { useNewsLoader } from './hooks/useNewsLoader';
+
+// Styles
+import { theme } from './styles/theme';
 
 const App = (): React.JSX.Element => {
 

@@ -1,4 +1,7 @@
+// External Libraries
 import styled from 'styled-components/native';
+
+// Assets
 import Logo from '../../assets/svg/Logo';
 
 export const Container = styled.ScrollView.attrs(() => ({

@@ -1,5 +1,7 @@
+// External Libraries
 import * as React from 'react';
 import Svg, { Rect, Defs, Pattern, Use, Image, SvgProps } from 'react-native-svg';
+
 const Close = (props: SvgProps) => (
   <Svg
     width={42}

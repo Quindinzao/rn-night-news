@@ -1,3 +1,4 @@
+// Database
 import { getDBConnection } from '../connection';
 
 export const removeSavedNews = async (

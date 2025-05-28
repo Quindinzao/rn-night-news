@@ -1,3 +1,19 @@
+// External Libraries
+import { useState } from 'react';
+import { Modal } from 'react-native';
+
+// Components
+import Header from '../../components/Header';
+import ItemCard from '../../components/ItemCard';
+import Button from '../../components/Button';
+import Text from '../../components/Text';
+import TextInput from '../../components/TextInput';
+import SelectableBox from '../../components/SelectableBox';
+
+// Interfaces
+import { ItemCardProps } from '../../interfaces/ItemCardProps';
+
+// Styles
 import {
   Container,
   Row,
@@ -10,17 +26,10 @@ import {
   CloseButton,
   CategoriesMosaic,
 } from './styles';
-import Header from '../../components/Header';
-import ItemCard from '../../components/ItemCard';
-import { ItemCardProps } from '../../interfaces/ItemCardProps';
-import Button from '../../components/Button';
+
+// Assets
 import Filter from '../../assets/svg/Filter';
-import TextInput from '../../components/TextInput';
-import SelectableBox from '../../components/SelectableBox';
-import React, { useState } from 'react';
-import { Modal } from 'react-native';
 import Close from '../../assets/svg/Close';
-import Text from '../../components/Text';
 
 const SearchList = (): React.JSX.Element => {
   const defaultList = [0, 1, 2, 3, 4, 5];

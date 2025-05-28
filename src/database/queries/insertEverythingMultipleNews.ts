@@ -1,5 +1,8 @@
-import { DataProps } from '../../interfaces/DataProps';
+// Database
 import { getDBConnection } from '../connection';
+
+// Interfaces
+import { DataProps } from '../../interfaces/DataProps';
 
 export const insertEverythingMultipleNews = async (articles: DataProps[]) => {
   const db = await getDBConnection();

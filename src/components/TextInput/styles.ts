@@ -1,5 +1,8 @@
+// External Libraries
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
+
+// Styles
 import { theme as shadowColor } from '../../styles/theme';
 
 const WIDTH_SCREEN = Dimensions.get('screen').width;

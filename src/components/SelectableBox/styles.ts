@@ -1,5 +1,8 @@
+// External Libraries
 import styled from 'styled-components/native';
 import { Animated } from 'react-native';
+
+// Styles
 import { theme as shadowColor } from '../../styles/theme';
 
 export const RNSelectableBox = styled(Animated.View)`

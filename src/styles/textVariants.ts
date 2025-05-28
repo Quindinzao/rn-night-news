@@ -1,3 +1,4 @@
+// External Libraries
 import { DefaultTheme } from 'styled-components/native';
 
 type Theme = DefaultTheme;

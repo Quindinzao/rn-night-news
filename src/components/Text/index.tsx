@@ -1,6 +1,8 @@
-import React from 'react';
-import { RNText } from './styles';
+// Interfaces
 import { TextProps } from '../../interfaces/TextProps';
+
+// Styles
+import { RNText } from './styles';
 
 const Text = ({textType, children, ...rest}: TextProps): React.JSX.Element => {
   return (

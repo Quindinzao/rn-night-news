@@ -1,4 +1,4 @@
-import { Alert } from 'react-native';
+// Database
 import { getDBConnection } from '../connection';
 
 export const getEverythingNews = async () => {
@@ -16,7 +16,6 @@ export const getEverythingNews = async () => {
             const row = result.rows.item(i);
             saved.push(row);
           }
-          Alert.alert('Dados carregados do SQLite', JSON.stringify(saved, null, 2));
           resolve(saved);
         },
         (_, error) => {

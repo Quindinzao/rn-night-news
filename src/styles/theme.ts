@@ -1,3 +1,4 @@
+// External Libraries
 import { Platform } from 'react-native';
 
 const ios = Platform.OS === 'ios';

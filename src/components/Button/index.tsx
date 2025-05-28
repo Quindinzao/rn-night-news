@@ -1,5 +1,8 @@
-import { RNButton } from './styles';
+// Interface
 import { ButtonProps } from '../../interfaces/ButtonProps';
+
+// Styles
+import { RNButton } from './styles';
 
 const Button = (props: ButtonProps): React.JSX.Element => {
   return (

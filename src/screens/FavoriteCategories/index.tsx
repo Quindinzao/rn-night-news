@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import { Container, Content, ContentButton, StyledLogo } from './styles';
-import Text from '../../components/Text';
-import SelectableBox from '../../components/SelectableBox';
+// External Libraries
+import { useState } from 'react';
 import { Alert, View } from 'react-native';
+
+// Components
+import SelectableBox from '../../components/SelectableBox';
+import Text from '../../components/Text';
 import Button from '../../components/Button';
+
+// Styles
+import { Container, Content, ContentButton, StyledLogo } from './styles';
 
 const FavoriteCategories = (): React.JSX.Element => {
   const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
