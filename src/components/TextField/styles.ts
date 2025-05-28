@@ -16,6 +16,7 @@ export const RNTextField = styled.TextInput`
   padding-left: ${({ theme }) => theme.spacing.md}px;
   font-family: ${({ theme }) => theme.fontFamily.bodyMedium};
   font-size: 16px;
+  color: ${({ theme }) => theme.colors.gray};
 `;
 
 RNTextField.defaultProps = {
