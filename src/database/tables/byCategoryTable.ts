@@ -1,11 +1,11 @@
 // Database
 import { getDBConnection } from '../connection';
 
-export const createTableByCategories = async () => {
+export const createTableByCategory = async () => {
   const db = await getDBConnection();
 
   const query = `
-    CREATE TABLE IF NOT EXISTS headlines (
+    CREATE TABLE IF NOT EXISTS byCategory (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       sourceName TEXT,
       author TEXT,

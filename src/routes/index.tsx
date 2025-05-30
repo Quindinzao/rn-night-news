@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
 // External libraries
 import { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,41 +10,54 @@ import CategoryStack from './stacks/category.routes';
 
 // Contexts
 import { useCategoriesContext } from '../contexts/CategoriesContext';
+import { useNewsContext } from '../contexts/NewsContext';
 
 const Routes = () => {
-  const { isTableReady, hasCategories, refresh } = useCategoriesContext();
+  const { byCategoryLoader, everythingLoader, headlinesLoader } = useNewsContext();
+  const categoryContext = useCategoriesContext();
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const prepare = async () => {
-      try {
-        await refresh();
-      } catch (err: any) {
-        console.error('Erro ao preparar app:', err.message);
-      } finally {
-        setIsReady(true);
-      }
-    };
-
     prepare();
   }, []);
 
+  const prepare = async () => {
+    try {
+      await categoryContext.refresh();
+    } catch (err: any) {
+      console.error('Erro ao preparar app:', err.message);
+    } finally {
+      setIsReady(true);
+    }
+  };
+
   useEffect(() => {
-    if (isReady && isTableReady) {
+    if (
+      isReady &&
+      categoryContext.isTableReady &&
+      byCategoryLoader.news &&
+      everythingLoader.news &&
+      headlinesLoader.news
+    ) {
       BootSplash.hide({ fade: true });
     }
-  }, [isReady, isTableReady]);
+  }, [
+    isReady,
+    categoryContext.isTableReady,
+    byCategoryLoader.news,
+    headlinesLoader.news,
+    headlinesLoader.news,
+  ]);
 
-  if (!isReady || !isTableReady) {
+  if (!isReady || !categoryContext.isTableReady) {
     return null;
   }
 
   return (
     <NavigationContainer>
-      {hasCategories ? <AppStack /> : <CategoryStack />}
+      {categoryContext.data ? <AppStack /> : <CategoryStack />}
     </NavigationContainer>
   );
 };
 
 export default Routes;
-

@@ -1,5 +1,5 @@
 // External Libraries
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Dimensions } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { useSharedValue } from 'react-native-reanimated';
@@ -19,8 +19,14 @@ import {
   Separator,
   TextVariant,
 } from './styles';
+import { useNewsContext } from '../../contexts/NewsContext';
+import { DataProps } from '../../interfaces/DataProps';
 
 const Home = (): React.JSX.Element => {
+  const [byCategory, setByCategory] = useState<DataProps[]>();
+  const [everything, setEverything] = useState<DataProps[]>();
+  const { byCategoryLoader, everythingLoader } = useNewsContext();
+
   const theme = useTheme();
   const WIDTH_SCREEN = Dimensions.get('screen').width;
   const progress = useSharedValue<number>(0);
@@ -53,42 +59,51 @@ const Home = (): React.JSX.Element => {
     },
   };
 
-  const defaultList = [0, 1, 2, 3, 4, 5];
-
   const ref = useRef<ICarouselInstance>(null);
   const onPressPagination = (index: number) => {
     ref.current?.scrollTo({ index });
 	};
 
   const separator = () => <Separator />;
-  const renderItemCard = (props: ItemCardProps, index: number) => {
+  const renderItemCard = (item: ItemCardProps, index: number) => {
     return (
       <ItemCard
         key={index}
-        itemCardType={props.itemCardType}
-        urlToImage={props.urlToImage}
-        title={props.title}
-        description={props.description}
-        sourceName={props.sourceName}
-        publishedAt={props.publishedAt}
-        isFavorite={props.isFavorite}
+        itemCardType={item.itemCardType}
+        urlToImage={item.urlToImage}
+        title={item.title}
+        description={item.description}
+        sourceName={item.sourceName}
+        publishedAt={item.publishedAt}
+        isFavorite={item.isFavorite}
       />
     );
   };
 
+  useEffect(() => {
+    setByCategory(byCategoryLoader.news);
+    setEverything(everythingLoader.news);
+  }, [
+    byCategoryLoader.news,
+    everythingLoader.news,
+  ]);
+
   return (
     <Container>
-      <HomeFlatList
-        data={defaultList}
-        renderItem={({ index }) => renderItemCard({
-          itemCardType: 'verticalList',
-          urlToImage: 'https://gizmodo.com/app/uploads/2024/12/Tile.jpg',
-          title: 'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included',
-          description: 'For a limited time, you can get this four-pack of Tile trackers at all-time low price on Amazon.',
-          sourceName: 'Gizmodo.com',
-          publishedAt: '2025-05-21T12:14:49Z',
-          isFavorite: false,
-        }, index)}
+      {/* {everything && everything.length > 0 ? */}
+        <HomeFlatList
+        data={everything}
+        renderItem={({ item, index } : {item: any, index: number}) =>
+          renderItemCard({
+            itemCardType: 'verticalList',
+            urlToImage: item.urlToImage,
+            title: item.title,
+            description: item.description,
+            sourceName: item.sourceName,
+            publishedAt: item.publishedAt,
+            isFavorite: false,
+          }, index)
+        }
         ItemSeparatorComponent={separator}
         ListHeaderComponent={
           <>
@@ -97,32 +112,39 @@ const Home = (): React.JSX.Element => {
               imageStr={require('../../assets/images/imgScreen1.png')}
             />
             <TextVariant textType="titleSmall">Favorite category</TextVariant>
-            <Carousel
-              ref={ref}
-              {...baseOptions}
-              loop
-              onProgressChange={progress}
-              data={defaultList}
-              renderItem={({ index }) => renderItemCard({
-                  itemCardType: 'carousel',
-                  urlToImage: 'https://gizmodo.com/app/uploads/2024/12/Tile.jpg',
-                  title: 'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included',
-                  description: 'For a limited time, you can get this four-pack of Tile trackers at all-time low price on Amazon.',
-                  sourceName: 'Gizmodo.com',
-                  publishedAt: '2025-05-21T12:14:49Z',
-                  isFavorite: false,
-              }, index)}
-            />
-            <Pagination.Basic
-              {...paginationBasicStyle}
-              progress={progress}
-              data={defaultList}
-              onPress={onPressPagination}
-            />
+            {byCategory && byCategory.length > 0 &&
+            <>
+              <Carousel
+                ref={ref}
+                {...baseOptions}
+                loop
+                onProgressChange={progress}
+                data={byCategory}
+                renderItem={({ item, index }) =>
+                  renderItemCard({
+                    itemCardType: 'carousel',
+                    urlToImage: item.urlToImage,
+                    title: item.title,
+                    description: item.description,
+                    sourceName: item.sourceName,
+                    publishedAt: item.publishedAt,
+                    isFavorite: false, // substitua se tiver lógica de favoritos
+                  }, index)
+                }
+              />
+              <Pagination.Basic
+                {...paginationBasicStyle}
+                progress={progress}
+                data={byCategory}
+                onPress={onPressPagination}
+              />
+            </>
+            }
             <TextVariant textType="titleSmall">News</TextVariant>
         </>
         }
       />
+
     </Container>
   );
 };

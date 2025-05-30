@@ -2,15 +2,15 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { Alert } from 'react-native';
 
-// Datavase
+// Database
 import { createTableCategories } from '../database/tables/categoriesTable';
-import { getCategories } from '../database/queries/getCategories';
-import { insertCategories } from '../database/queries/insertCategories';
-import { deleteCategories } from '../database/queries/deleteCategories';
+import { getCategories } from '../database/queries/categories/getCategories';
+import { insertCategories } from '../database/queries/categories/insertCategories';
+import { deleteCategories } from '../database/queries/categories/deleteCategories';
 
 interface CategoriesContextType {
   isTableReady: boolean;
-  hasCategories: boolean;
+  data: {id: number, categoryName: string} | null;
   refresh: () => Promise<void>;
   saveCategories: (selected: string[]) => Promise<boolean>;
   error: string | null;
@@ -18,7 +18,7 @@ interface CategoriesContextType {
 
 const CategoriesContext = createContext<CategoriesContextType>({
   isTableReady: false,
-  hasCategories: false,
+  data: null,
   refresh: async () => {},
   saveCategories: async () => false,
   error: null,
@@ -26,7 +26,7 @@ const CategoriesContext = createContext<CategoriesContextType>({
 
 export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
   const [isTableReady, setIsTableReady] = useState(false);
-  const [hasCategories, setHasCategories] = useState(false);
+  const [data, setData] = useState<{id: number, categoryName: string} | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = async () => {
@@ -35,8 +35,8 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
       setIsTableReady(true);
 
       const result = await getCategories();
-      const categories = result as { categoryName: string }[];
-      setHasCategories(categories.length > 0);
+      const categories = result as { id: number; categoryName: string }[];
+      setData(categories[0]);
     } catch (err: any) {
       console.error('[CategoriesContext] Erro ao inicializar:', err.message);
       setError(err.message);
@@ -70,7 +70,7 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
     <CategoriesContext.Provider
       value={{
         isTableReady,
-        hasCategories,
+        data,
         refresh,
         saveCategories,
         error,

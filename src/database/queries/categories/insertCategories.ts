@@ -18,7 +18,7 @@ export const insertCategories = async (categories: string[]): Promise<void> => {
         });
       },
       error => {
-        Alert.alert('Erro na transação:', error.message);
+        Alert.alert('Error:', error.message);
         reject(error);
       },
       () => {

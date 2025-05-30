@@ -11,15 +11,18 @@ import { CategoriesProvider } from './contexts/CategoriesContext';
 
 // Styles
 import { theme } from './styles/theme';
+import { NewsProvider } from './contexts/NewsContext';
 
 const App = (): React.JSX.Element => {
 
   return (
     <GestureHandlerRootView>
       <CategoriesProvider>
-        <ThemeProvider theme={theme}>
-          <Routes />
-        </ThemeProvider>
+        <NewsProvider>
+          <ThemeProvider theme={theme}>
+            <Routes />
+          </ThemeProvider>
+        </NewsProvider>
       </CategoriesProvider>
     </GestureHandlerRootView>
   );
