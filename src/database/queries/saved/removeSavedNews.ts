@@ -1,5 +1,5 @@
 // Database
-import { getDBConnection } from '../connection';
+import { getDBConnection } from '../../connection';
 
 export const removeSavedNews = async (
   id: number

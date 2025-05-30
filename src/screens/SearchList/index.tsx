@@ -12,6 +12,9 @@ import ModalCategories from '../../components/ModalCategories';
 // Interfaces
 import { ItemCardProps } from '../../interfaces/ItemCardProps';
 
+// Constants
+import { newsCategories } from '../../constants/categories';
+
 // Styles
 import {
   Container,
@@ -39,20 +42,6 @@ const SearchList = (): React.JSX.Element => {
       setCategoriesSelected([...categoriesSelected, category]);
     }
   };
-
-  const newsCategories = [
-    'World',
-    'Politics',
-    'Business',
-    'Technology',
-    'Science',
-    'Health',
-    'Travel',
-    'Environment',
-    'Education',
-    'Crime',
-    'Economy',
-  ];
 
   const separator = () => <Separator />;
   const renderItemCard = (props: ItemCardProps, index: number) => {

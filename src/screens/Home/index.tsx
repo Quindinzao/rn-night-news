@@ -96,7 +96,7 @@ const Home = (): React.JSX.Element => {
               title={'News for your\nInsomnia'}
               imageStr={require('../../assets/images/imgScreen1.png')}
             />
-            <TextVariant textType="titleSmall">Favorites categories</TextVariant>
+            <TextVariant textType="titleSmall">Favorite category</TextVariant>
             <Carousel
               ref={ref}
               {...baseOptions}

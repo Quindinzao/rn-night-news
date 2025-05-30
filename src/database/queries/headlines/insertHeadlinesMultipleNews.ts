@@ -1,16 +1,16 @@
 // Database
-import { getDBConnection } from '../connection';
+import { getDBConnection } from '../../connection';
 
 // Interfaces
-import { DataProps } from '../../interfaces/DataProps';
+import { DataProps } from '../../../interfaces/DataProps';
 
-export const insertEverythingMultipleNews = async (articles: DataProps[]) => {
+export const insertHeadlinesMultipleNews = async (articles: DataProps[]) => {
   const db = await getDBConnection();
 
   return db.transaction(tx => {
     articles.forEach(article => {
       tx.executeSql(
-        `INSERT INTO everything 
+        `INSERT INTO headlines 
           (sourceName, author, title, description, url, urlToImage, publishedAt, content) 
           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
         [

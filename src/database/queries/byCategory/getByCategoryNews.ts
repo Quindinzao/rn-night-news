@@ -1,22 +1,22 @@
 // Database
-import { getDBConnection } from '../connection';
+import { getDBConnection } from '../../connection';
 
-export const getEverythingNews = async () => {
+export const getByCategoryNews = async () => {
   const db = await getDBConnection();
 
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
-        'SELECT * FROM everything',
+        'SELECT * FROM byCategory',
         [],
         (_, result) => {
-          const saved = [];
+          const everything = [];
 
           for (let i = 0; i < result.rows.length; i++) {
             const row = result.rows.item(i);
-            saved.push(row);
+            everything.push(row);
           }
-          resolve(saved);
+          resolve(everything);
         },
         (_, error) => {
           reject(error);

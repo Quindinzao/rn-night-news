@@ -1,5 +1,5 @@
 // Database
-import { getDBConnection } from '../connection';
+import { getDBConnection } from '../../connection';
 
 export const getSavedNews = async () => {
   const db = await getDBConnection();
