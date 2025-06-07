@@ -7,23 +7,23 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Routes from './routes';
 
 // Context
-import { CategoriesProvider } from './contexts/CategoriesContext';
+import { CategoryProvider } from './contexts/CategoryContext';
+import { NewsProvider } from './contexts/NewsContext';
 
 // Styles
 import { theme } from './styles/theme';
-import { NewsProvider } from './contexts/NewsContext';
 
 const App = (): React.JSX.Element => {
 
   return (
     <GestureHandlerRootView>
-      <CategoriesProvider>
+      <CategoryProvider>
         <NewsProvider>
           <ThemeProvider theme={theme}>
             <Routes />
           </ThemeProvider>
         </NewsProvider>
-      </CategoriesProvider>
+      </CategoryProvider>
     </GestureHandlerRootView>
   );
 };

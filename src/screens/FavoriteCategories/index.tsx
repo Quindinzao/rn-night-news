@@ -1,5 +1,5 @@
 // External Libraries
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Alert, View } from 'react-native';
 
 // Components
@@ -8,7 +8,7 @@ import Text from '../../components/Text';
 import Button from '../../components/Button';
 
 // Context
-import { useCategoriesContext } from '../../contexts/CategoriesContext';
+import { useCategoryContext } from '../../contexts/CategoryContext';
 
 // Constants
 import { newsCategories } from '../../constants/categories';
@@ -17,24 +17,32 @@ import { newsCategories } from '../../constants/categories';
 import { Container, Content, ContentButton, StyledLogo } from './styles';
 
 const FavoriteCategories = (): React.JSX.Element => {
-  const { saveCategories } = useCategoriesContext();
-  const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
+  const { saveCategory, selectedCategory } = useCategoryContext();
+  const [categorySelected, setCategorySelected] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      setCategorySelected(selectedCategory);
+    }
+  }, [selectedCategory]);
 
   const handleCategoryPress = (category: string) => {
-    if (categoriesSelected.includes(category)) {
-      setCategoriesSelected(categoriesSelected.filter(item => item !== category));
-    } else if (categoriesSelected.length >= 1) {
-      Alert.alert('Hey,', 'You can only select up to 1 category');
-    } else if (categoriesSelected.length < 1) {
-      setCategoriesSelected([...categoriesSelected, category]);
+    if (categorySelected === category) {
+      setCategorySelected(null); // desmarca se já está selecionada
+    } else {
+      setCategorySelected(category);
     }
   };
 
-  const handleSaveCategories = async () => {
-    try {
-      await saveCategories(categoriesSelected);
-    } catch (err: any) {
-      Alert.alert('Oops!', 'Try later');
+  const handleSaveCategory = async () => {
+    if (!categorySelected) {
+      Alert.alert('Hey,', 'You must select a category before saving');
+      return;
+    }
+
+    const success = await saveCategory(categorySelected);
+    if (!success) {
+      Alert.alert('Oops!', 'Error saving category. Try again later.');
     }
   };
 
@@ -44,20 +52,18 @@ const FavoriteCategories = (): React.JSX.Element => {
         <StyledLogo />
         <Text textType="titleLarge">Choose your favorite category</Text>
         <Content>
-          {newsCategories.map((item, index) => {
-            return (
-              <SelectableBox
-                key={index}
-                label={item}
-                onToggle={handleCategoryPress}
-                categoriesSelected={categoriesSelected}
-              />
-            );
-          })}
+          {newsCategories.map((item, index) => (
+            <SelectableBox
+              key={index}
+              label={item}
+              onToggle={handleCategoryPress}
+              categoriesSelected={categorySelected ? [categorySelected] : []}
+            />
+          ))}
         </Content>
       </View>
       <ContentButton>
-        <Button onPress={() => handleSaveCategories()} typeButton="text">
+        <Button onPress={handleSaveCategory} typeButton="text">
           <Text textType="bodyMedium">Save</Text>
         </Button>
       </ContentButton>

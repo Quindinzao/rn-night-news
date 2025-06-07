@@ -10,7 +10,6 @@ import { DataProps } from '../interfaces/DataProps';
 import { api } from '../services/newsApi';
 
 interface NewsProps {
-  category: string;
   urlName: string;
   params: any;
   createTable: () => Promise<[ResultSet]>;
@@ -23,16 +22,26 @@ export const useNewsLoader = (props: NewsProps) => {
   const [news, setNews] = useState<DataProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>();
+  const [page, setPage] = useState<number>(1);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const loadNews = async () => {
+  const loadNews = async (isLoadMore = false) => {
     try {
-      await props.createTable();
+      if (!isLoadMore) {
+        setLoading(true);
+        await props.createTable();
+      } else {
+        setIsLoadingMore(true);
+      }
 
-      const fetchResponsePromise = api.get(props.urlName, { params: props.params });
+      const response = await api.get(props.urlName, {
+        params: {
+          ...props.params,
+          page: isLoadMore ? page + 1 : 1,
+        },
+      });
 
-      const response = await fetchResponsePromise;
       const articles = response.data.articles;
-
       const flatArticles: DataProps[] = articles.map((article: any) => ({
         sourceName: article.source?.name ?? null,
         author: article.author ?? null,
@@ -44,13 +53,18 @@ export const useNewsLoader = (props: NewsProps) => {
         content: article.content ?? null,
       }));
 
-      await Promise.all([
-        props.deleteNews(),
-        props.insertNews(flatArticles),
-      ]);
 
-      const sqliteNews = await props.getNews() as DataProps[];
-      setNews(sqliteNews);
+      if (!isLoadMore) {
+        await Promise.all([
+          props.deleteNews(),
+          props.insertNews(flatArticles),
+        ]);
+        const sqliteNews = await props.getNews() as DataProps[];
+        setNews(sqliteNews);
+      } else {
+        setNews(prev => [...prev, ...flatArticles]);
+        setPage(prev => prev + 1);
+      }
 
     } catch (err: any) {
       console.error('[useNewsLoader] API fallback triggered:', err.message);
@@ -59,11 +73,10 @@ export const useNewsLoader = (props: NewsProps) => {
         setNews(offlineNews);
       } catch (sqliteError: any) {
         setError(sqliteError.message);
-      } finally {
-        setLoading(false);
       }
     } finally {
       setLoading(false);
+      setIsLoadingMore(false);
     }
   };
 
@@ -76,5 +89,7 @@ export const useNewsLoader = (props: NewsProps) => {
     loading,
     error,
     loadNews,
+    loadMore: () => loadNews(true),
+    isLoadingMore,
   };
 };

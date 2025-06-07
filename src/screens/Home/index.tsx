@@ -1,6 +1,7 @@
+/* eslint-disable react/no-unstable-nested-components */
 // External Libraries
 import { useEffect, useRef, useState } from 'react';
-import { Dimensions } from 'react-native';
+import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { useSharedValue } from 'react-native-reanimated';
 import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated-carousel';
@@ -9,8 +10,12 @@ import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated
 import Header from '../../components/Header';
 import ItemCard from '../../components/ItemCard';
 
+// Contexts
+import { useNewsContext } from '../../contexts/NewsContext';
+
 // Interfaces
 import { ItemCardProps } from '../../interfaces/ItemCardProps';
+import { DataProps } from '../../interfaces/DataProps';
 
 // Styles
 import {
@@ -19,10 +24,10 @@ import {
   Separator,
   TextVariant,
 } from './styles';
-import { useNewsContext } from '../../contexts/NewsContext';
-import { DataProps } from '../../interfaces/DataProps';
 
 const Home = (): React.JSX.Element => {
+  const flatListRef = useRef<FlatList>(null);
+  const [currentOffset, setCurrentOffset] = useState<number>(0);
   const [byCategory, setByCategory] = useState<DataProps[]>();
   const [everything, setEverything] = useState<DataProps[]>();
   const { byCategoryLoader, everythingLoader } = useNewsContext();
@@ -88,10 +93,38 @@ const Home = (): React.JSX.Element => {
     everythingLoader.news,
   ]);
 
+  const onScroll = (event: any) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    setCurrentOffset(offsetY);
+  };
+
+  const onEndReached = () => {
+    if (!everythingLoader.isLoadingMore) {
+      everythingLoader.loadMore();
+      scrollToOffset(); // sem passar valor fixo
+    }
+  };
+
+  const scrollToOffset = () => {
+    if (flatListRef.current) {
+      const newOffset = Math.max(currentOffset - currentOffset * 0.0001, 0);
+      flatListRef.current.scrollToOffset({ offset: newOffset, animated: true });
+    }
+  };
+
+  const ListFooterComponent = () => {
+    if (everythingLoader.error) {
+      console.error('Oops: ', everythingLoader.error);
+    }
+    return everythingLoader.isLoadingMore && (
+      <ActivityIndicator size="large" color={theme.colors.primaryColor} />
+    );
+  };
+
   return (
     <Container>
-      {/* {everything && everything.length > 0 ? */}
-        <HomeFlatList
+      <HomeFlatList
+        ref={flatListRef}
         data={everything}
         renderItem={({ item, index } : {item: any, index: number}) =>
           renderItemCard({
@@ -104,7 +137,12 @@ const Home = (): React.JSX.Element => {
             isFavorite: false,
           }, index)
         }
+        onScroll={onScroll}
+        scrollEventThrottle={16}
         ItemSeparatorComponent={separator}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={ListFooterComponent}
         ListHeaderComponent={
           <>
             <Header
@@ -128,7 +166,7 @@ const Home = (): React.JSX.Element => {
                     description: item.description,
                     sourceName: item.sourceName,
                     publishedAt: item.publishedAt,
-                    isFavorite: false, // substitua se tiver lógica de favoritos
+                    isFavorite: false,
                   }, index)
                 }
               />
@@ -144,7 +182,6 @@ const Home = (): React.JSX.Element => {
         </>
         }
       />
-
     </Container>
   );
 };

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-// External libraries
+// External Libraries
 import { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import BootSplash from 'react-native-bootsplash';
@@ -9,32 +9,31 @@ import AppStack from './stacks/app.routes';
 import CategoryStack from './stacks/category.routes';
 
 // Contexts
-import { useCategoriesContext } from '../contexts/CategoriesContext';
+import { useCategoryContext } from '../contexts/CategoryContext';
 import { useNewsContext } from '../contexts/NewsContext';
 
 const Routes = () => {
   const { byCategoryLoader, everythingLoader, headlinesLoader } = useNewsContext();
-  const categoryContext = useCategoriesContext();
+  const { selectedCategory, refresh } = useCategoryContext();
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    const prepare = async () => {
+      try {
+        await refresh(); // carrega a categoria do AsyncStorage
+      } catch (err: any) {
+        console.error('Erro ao preparar app:', err.message);
+      } finally {
+        setIsReady(true);
+      }
+    };
+
     prepare();
   }, []);
-
-  const prepare = async () => {
-    try {
-      await categoryContext.refresh();
-    } catch (err: any) {
-      console.error('Erro ao preparar app:', err.message);
-    } finally {
-      setIsReady(true);
-    }
-  };
 
   useEffect(() => {
     if (
       isReady &&
-      categoryContext.isTableReady &&
       byCategoryLoader.news &&
       everythingLoader.news &&
       headlinesLoader.news
@@ -43,19 +42,18 @@ const Routes = () => {
     }
   }, [
     isReady,
-    categoryContext.isTableReady,
     byCategoryLoader.news,
-    headlinesLoader.news,
+    everythingLoader.news,
     headlinesLoader.news,
   ]);
 
-  if (!isReady || !categoryContext.isTableReady) {
+  if (!isReady) {
     return null;
   }
 
   return (
     <NavigationContainer>
-      {categoryContext.data ? <AppStack /> : <CategoryStack />}
+      {selectedCategory !== null ? <AppStack /> : <CategoryStack />}
     </NavigationContainer>
   );
 };
