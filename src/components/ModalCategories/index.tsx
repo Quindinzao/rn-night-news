@@ -9,7 +9,7 @@ interface ModalCategories {
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   handleCategoryPress: (category: string) => void;
   newsCategories: string[];
-  categorySelected: string;
+  selectedCategory: string;
 }
 
 const ModalCategories = (props: ModalCategories): React.JSX.Element => {
@@ -37,7 +37,7 @@ const ModalCategories = (props: ModalCategories): React.JSX.Element => {
                   key={index}
                   label={item}
                   onToggle={props.handleCategoryPress}
-                  categorySelected={props.categorySelected}
+                  selectedCategory={props.selectedCategory}
                 />
               );
             })}

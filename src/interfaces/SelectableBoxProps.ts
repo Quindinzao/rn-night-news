@@ -1,5 +1,5 @@
 export interface SelectableBoxProps {
   label: string;
-  categorySelected: string;
+  selectedCategory: string;
   onToggle: (item: string) => void;
 }

@@ -14,7 +14,7 @@ import { SelectableBoxProps } from '../../interfaces/SelectableBoxProps';
 import { RNSelectableBox, Container } from './styles';
 
 const SelectableBox = (props: SelectableBoxProps): React.JSX.Element => {
-  const isSelected = props.categorySelected === props.label;
+  const isSelected = props.selectedCategory === props.label;
   const theme = useTheme();
   const animatedValue = useRef(new Animated.Value(0)).current;
 
@@ -24,7 +24,7 @@ const SelectableBox = (props: SelectableBoxProps): React.JSX.Element => {
       duration: 300,
       useNativeDriver: false,
     }).start();
-  }, [props.categorySelected]);
+  }, [props.selectedCategory]);
 
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],

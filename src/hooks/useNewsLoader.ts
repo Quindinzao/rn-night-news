@@ -66,10 +66,12 @@ export const useNewsLoader = (props: NewsProps) => {
       }
 
     } catch (err: any) {
+      // Alert.alert('Something went wrong first catch', JSON.stringify(err));
       try {
         const offlineNews = await props.getNews() as DataProps[];
         setNews(offlineNews);
       } catch (sqliteError: any) {
+        // Alert.alert('Something went wrong second', JSON.stringify(sqliteError));
         setError(sqliteError.message);
       }
     } finally {

@@ -18,29 +18,29 @@ import { Container, Content, ContentButton, StyledLogo } from './styles';
 
 const FavoriteCategories = (): React.JSX.Element => {
   const { saveCategory, selectedCategory } = useCategoryContext();
-  const [categorySelected, setCategorySelected] = useState<string | null>(null);
+  const [mySelectedCategory, setMySelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     if (selectedCategory) {
-      setCategorySelected(selectedCategory);
+      setMySelectedCategory(selectedCategory);
     }
   }, [selectedCategory]);
 
   const handleCategoryPress = (category: string) => {
-    if (categorySelected === category) {
-      setCategorySelected(null); // desmarca se já está selecionada
+    if (mySelectedCategory === category) {
+      setMySelectedCategory(null);
     } else {
-      setCategorySelected(category);
+      setMySelectedCategory(category);
     }
   };
 
   const handleSaveCategory = async () => {
-    if (!categorySelected) {
+    if (!mySelectedCategory) {
       Alert.alert('Hey,', 'You must select a category before saving');
       return;
     }
 
-    const success = await saveCategory(categorySelected);
+    const success = await saveCategory(mySelectedCategory);
     if (!success) {
       Alert.alert('Oops!', 'Error saving category. Try again later.');
     }
@@ -57,7 +57,7 @@ const FavoriteCategories = (): React.JSX.Element => {
               key={index}
               label={item}
               onToggle={handleCategoryPress}
-              categoriesSelected={categorySelected ? [categorySelected] : []}
+              selectedCategory={mySelectedCategory ? mySelectedCategory : ''}
             />
           ))}
         </Content>

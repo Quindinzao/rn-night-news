@@ -17,17 +17,17 @@ const Routes = () => {
   const { selectedCategory, refresh } = useCategoryContext();
   const [isReady, setIsReady] = useState(false);
 
-  useEffect(() => {
-    const prepare = async () => {
-      try {
-        await refresh(); // carrega a categoria do AsyncStorage
-      } catch (err: any) {
-        console.error('Erro ao preparar app:', err.message);
-      } finally {
-        setIsReady(true);
-      }
-    };
+  const prepare = async () => {
+    try {
+      await refresh(); // carrega a categoria do AsyncStorage
+    } catch (err: any) {
+      console.error('Erro ao preparar app:', err.message);
+    } finally {
+      setIsReady(true);
+    }
+  };
 
+  useEffect(() => {
     prepare();
   }, []);
 
