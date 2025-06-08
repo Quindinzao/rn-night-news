@@ -9,7 +9,6 @@ import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated
 // Components
 import Header from '../../components/Header';
 import ItemCard from '../../components/ItemCard';
-import Error from '../../components/Error';
 
 // Contexts
 import { useNewsContext } from '../../contexts/NewsContext';
@@ -29,7 +28,6 @@ import {
 const Home = (): React.JSX.Element => {
   const flatListRef = useRef<FlatList>(null);
   const [currentOffset, setCurrentOffset] = useState<number>(0);
-  const [error, setError] = useState<string>('');
   const [byCategory, setByCategory] = useState<DataProps[]>();
   const [everything, setEverything] = useState<DataProps[]>();
   const { byCategoryLoader, everythingLoader } = useNewsContext();
@@ -120,7 +118,7 @@ const Home = (): React.JSX.Element => {
 
   const ListFooterComponent = () => {
     if (everythingLoader.error) {
-      setError(everythingLoader.error);
+      console.error(everythingLoader.error);
     }
     return everythingLoader.isLoadingMore && (
       <ActivityIndicator size="large" color={theme.colors.primaryColor} />
@@ -159,8 +157,6 @@ const Home = (): React.JSX.Element => {
               title={'News for your\nInsomnia'}
               imageStr={require('../../assets/images/imgScreen1.png')}
             />
-
-            {error && <Error err={error} />}
             <TextVariant textType="titleSmall">Favorite category</TextVariant>
             {byCategory && byCategory.length > 0 &&
             <>

@@ -1,5 +1,6 @@
+/* eslint-disable react/no-unstable-nested-components */
 // External Libraries
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // Components
 import Header from '../../components/Header';
@@ -28,51 +29,112 @@ import {
 
 // Assets
 import Filter from '../../assets/svg/Filter';
+import { ActivityIndicator, FlatList } from 'react-native';
+import { DataProps } from '../../interfaces/DataProps';
+import { useNewsContext } from '../../contexts/NewsContext';
+import { useTheme } from 'styled-components/native';
 
 const SearchList = (): React.JSX.Element => {
-  const defaultList = [0, 1, 2, 3, 4, 5];
-  const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
+  const [categorySelected, setCategorySelected] = useState<string>('');
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const flatListRef = useRef<FlatList>(null);
+  const [currentOffset, setCurrentOffset] = useState<number>(0);
+  const [error, setError] = useState<string>('');
+  const [headlines, setHeadlines] = useState<DataProps[]>();
+  const [everything, setEverything] = useState<DataProps[]>();
+  const { headlinesLoader, everythingLoader } = useNewsContext();
+  const theme = useTheme();
   const openModal = () => setIsModalVisible(true);
 
   const handleCategoryPress = (category: string) => {
-    if (categoriesSelected.includes(category)) {
-      setCategoriesSelected(categoriesSelected.filter(item => item !== category));
+    if (categorySelected === category) {
+      setCategorySelected('');
     } else {
-      setCategoriesSelected([...categoriesSelected, category]);
+      setCategorySelected(category);
     }
   };
 
   const separator = () => <Separator />;
-  const renderItemCard = (props: ItemCardProps, index: number) => {
+  const renderItemCard = (item: ItemCardProps, index: number) => {
     return (
       <ItemCard
         key={index}
-        itemCardType={props.itemCardType}
-        urlToImage={props.urlToImage}
-        title={props.title}
-        description={props.description}
-        sourceName={props.sourceName}
-        publishedAt={props.publishedAt}
-        isFavorite={props.isFavorite}
+        itemCardType={item.itemCardType}
+        urlToImage={item.urlToImage}
+        title={item.title}
+        description={item.description}
+        sourceName={item.sourceName}
+        publishedAt={item.publishedAt}
+        isFavorite={item.isFavorite}
+        id={index}
+        author={item.author}
+        content={item.content}
+        url={item.url}
       />
+    );
+  };
+
+  useEffect(() => {
+    setHeadlines(headlinesLoader.news);
+    setEverything(everythingLoader.news);
+  }, [
+    headlinesLoader.news,
+    everythingLoader.news,
+  ]);
+
+  const onScroll = (event: any) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    setCurrentOffset(offsetY);
+  };
+
+  const onEndReached = () => {
+    if (!everythingLoader.isLoadingMore) {
+      everythingLoader.loadMore();
+      scrollToOffset();
+    }
+  };
+
+  const scrollToOffset = () => {
+    if (flatListRef.current) {
+      const newOffset = Math.max(currentOffset - currentOffset * 0.0001, 0);
+      flatListRef.current.scrollToOffset({ offset: newOffset, animated: true });
+    }
+  };
+
+  const ListFooterComponent = () => {
+    if (everythingLoader.error) {
+      setError(everythingLoader.error);
+    }
+    return everythingLoader.isLoadingMore && (
+      <ActivityIndicator size="large" color={theme.colors.primaryColor} />
     );
   };
 
   return (
     <Container>
       <SearchFlatList
-        data={defaultList}
-        renderItem={({ index }) => renderItemCard({
-          itemCardType: 'verticalList',
-          urlToImage: 'https://gizmodo.com/app/uploads/2024/12/Tile.jpg',
-          title: 'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included',
-          description: 'For a limited time, you can get this four-pack of Tile trackers at all-time low price on Amazon.',
-          sourceName: 'Gizmodo.com',
-          publishedAt: '2025-05-21T12:14:49Z',
-          isFavorite: false,
-        }, index)}
+        data={everything}
+        renderItem={({ item, index } : {item: any, index: number}) =>
+          renderItemCard({
+            itemCardType: 'verticalList',
+            urlToImage: item.urlToImage,
+            title: item.title,
+            description: item.description,
+            sourceName: item.sourceName,
+            publishedAt: item.publishedAt,
+            id: index,
+            author: item.author,
+            content: item.content,
+            url: item.url,
+            isFavorite: false,
+          }, index)
+        }
+        onScroll={onScroll}
+        scrollEventThrottle={16}
         ItemSeparatorComponent={separator}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={ListFooterComponent}
         ListHeaderComponent={
           <>
             <Header
@@ -80,27 +142,37 @@ const SearchList = (): React.JSX.Element => {
               imageStr={require('../../assets/images/imgScreen2.png')}
             />
             <Row>
-              <TextField />
+              <TextField placeholder="Search for keywords" />
               <Button typeButton="icon" onPress={openModal}>
                 <Filter />
               </Button>
             </Row>
             <CategoryScrollView>
-              {categoriesSelected.map((item, index) => {
-                return <SelectableBox key={index} label={item} onToggle={handleCategoryPress} categoriesSelected={categoriesSelected} />;
-              })}
+              {categorySelected !== '' &&
+                <SelectableBox
+                  label={categorySelected}
+                  onToggle={handleCategoryPress}
+                  categorySelected={categorySelected}
+                />
+              }
             </CategoryScrollView>
             <TextVariant textType="titleSmall">Breaking news</TextVariant>
             <ItemCardScrollView>
-              {defaultList.map((_, index) => renderItemCard({
-                itemCardType: 'horizontalList',
-                urlToImage: 'https://gizmodo.com/app/uploads/2024/12/Tile.jpg',
-                title: 'Tile’s 4-Pack Bluetooth Trackers Now Beat Apple’s AirTags on Price and Function, Shape Variety Included',
-                description: 'For a limited time, you can get this four-pack of Tile trackers at all-time low price on Amazon.',
-                sourceName: 'Gizmodo.com',
-                publishedAt: '2025-05-21T12:14:49Z',
-                isFavorite: false,
-              }, index))}
+              {headlines && headlines.map((item, index) =>
+                renderItemCard({
+                  itemCardType: 'horizontalList',
+                  urlToImage: item.urlToImage,
+                  title: item.title,
+                  description: item.description,
+                  sourceName: item.sourceName,
+                  publishedAt: item.publishedAt,
+                  id: index,
+                  author: item.author,
+                  content: item.content,
+                  url: item.url,
+                  isFavorite: false,
+                }, index)
+              )}
             </ItemCardScrollView>
             <TextVariant textType="titleSmall">News</TextVariant>
         </>
@@ -111,7 +183,7 @@ const SearchList = (): React.JSX.Element => {
         setIsModalVisible={setIsModalVisible}
         handleCategoryPress={handleCategoryPress}
         newsCategories={newsCategories}
-        categoriesSelected={categoriesSelected}
+        categorySelected={categorySelected}
       />
 
     </Container>

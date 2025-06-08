@@ -9,7 +9,7 @@ interface ModalCategories {
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   handleCategoryPress: (category: string) => void;
   newsCategories: string[];
-  categoriesSelected: string[];
+  categorySelected: string;
 }
 
 const ModalCategories = (props: ModalCategories): React.JSX.Element => {
@@ -32,7 +32,14 @@ const ModalCategories = (props: ModalCategories): React.JSX.Element => {
           </Row>
           <CategoriesMosaic>
             {props.newsCategories.map((item, index) => {
-              return <SelectableBox key={index} label={item} onToggle={props.handleCategoryPress} categoriesSelected={props.categoriesSelected} />;
+              return (
+                <SelectableBox
+                  key={index}
+                  label={item}
+                  onToggle={props.handleCategoryPress}
+                  categorySelected={props.categorySelected}
+                />
+              );
             })}
           </CategoriesMosaic>
         </ModalContent>

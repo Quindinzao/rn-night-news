@@ -4,6 +4,7 @@ import { Dimensions } from 'react-native';
 
 // Assets
 import Logo from '../../assets/svg/Logo';
+import LinearGradient from 'react-native-linear-gradient';
 
 const WIDTH_SCREEN = Dimensions.get('screen').width;
 
@@ -14,6 +15,18 @@ export const RNHeader = styled.View`
   width: ${WIDTH_SCREEN}px;
   height: ${WIDTH_SCREEN}px;
   padding: 32px 24px;
+`;
+
+export const Shadow = styled(LinearGradient).attrs({
+  start: { x: 0.5, y: 0 },
+  end: { x: 0.5, y: 1 },
+})`
+  width: ${WIDTH_SCREEN}px;
+  height: ${WIDTH_SCREEN}px;
+
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
 
 export const ImageHeader = styled.Image.attrs({
@@ -37,21 +50,19 @@ export const StyledLogo = styled(Logo).attrs({
 
 export const TouchableReturn = styled.TouchableOpacity`
   position: absolute;
-  top: ${({ theme }) => theme.spacing.xxl}px;
+  top: 32px;
   left: 16px;
 `;
 
 export const TouchableSave = styled.TouchableOpacity`
   width: 48px;
-  height: 84px;
-  position: absolute;
-  top: 0;
-  right: 24px;
+  height: 48px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+  position: absolute;
+  top: 32px;
 
-  padding-bottom: ${({ theme }) => theme.spacing.md}px;
-  border-bottom-right-radius: ${({ theme }) => theme.borderRadius.md}px;
-  border-bottom-left-radius: ${({ theme }) => theme.borderRadius.md}px;
+  right: ${({ theme }) => theme.spacing.md}px;
+  border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.secondaryColor};
 `;

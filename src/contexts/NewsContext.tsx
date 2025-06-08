@@ -19,15 +19,21 @@ import { createTableHeadlines } from '../database/tables/headlinesTable';
 import { createTableByCategory } from '../database/tables/byCategoryTable';
 
 // Database – queries
-import { insertEverythingMultipleNews } from '../database/queries/everything/insertEverythingMultipleNews';
-import { insertHeadlinesMultipleNews } from '../database/queries/headlines/insertHeadlinesMultipleNews';
-import { insertByCategoryMultipleNews } from '../database/queries/byCategory/insertByCategoryMultipleNews';
-import { getEverythingNews } from '../database/queries/everything/getEverythingNews';
-import { getHeadlinesNews } from '../database/queries/headlines/getHeadlinesNews';
-import { getByCategoryNews } from '../database/queries/byCategory/getByCategoryNews';
-import { deleteEverythingNews } from '../database/queries/everything/deleteEverythingNews';
-import { deleteHeadlinesNews } from '../database/queries/headlines/deleteHeadlinesNews';
-import { deleteByCategoryNews } from '../database/queries/byCategory/deleteByCategoryNews';
+import {
+  insertEverythingMultipleNews,
+  getEverythingNews,
+  deleteEverythingNews,
+} from '../database/queries/everything';
+import {
+  insertHeadlinesMultipleNews,
+  getHeadlinesNews,
+  deleteHeadlinesNews,
+} from '../database/queries/headlines';
+import {
+  insertByCategoryMultipleNews,
+  getByCategoryNews,
+  deleteByCategoryNews,
+} from '../database/queries/byCategory';
 
 // Contexto de Categorias
 import { useCategoryContext } from './CategoryContext';

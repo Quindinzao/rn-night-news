@@ -126,6 +126,7 @@ const NewsDetail = ({route}: propsNewsDetail) => {
               }, index)
             }
             horizontal
+            showsHorizontalScrollIndicator={false}
             ItemSeparatorComponent={separator}
           />
         </>
