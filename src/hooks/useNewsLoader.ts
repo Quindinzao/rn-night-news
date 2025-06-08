@@ -53,7 +53,6 @@ export const useNewsLoader = (props: NewsProps) => {
         content: article.content ?? null,
       }));
 
-
       if (!isLoadMore) {
         await Promise.all([
           props.deleteNews(),
@@ -67,7 +66,6 @@ export const useNewsLoader = (props: NewsProps) => {
       }
 
     } catch (err: any) {
-      console.error('[useNewsLoader] API fallback triggered:', err.message);
       try {
         const offlineNews = await props.getNews() as DataProps[];
         setNews(offlineNews);

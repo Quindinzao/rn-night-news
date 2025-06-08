@@ -9,6 +9,7 @@ import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated
 // Components
 import Header from '../../components/Header';
 import ItemCard from '../../components/ItemCard';
+import Error from '../../components/Error';
 
 // Contexts
 import { useNewsContext } from '../../contexts/NewsContext';
@@ -28,6 +29,7 @@ import {
 const Home = (): React.JSX.Element => {
   const flatListRef = useRef<FlatList>(null);
   const [currentOffset, setCurrentOffset] = useState<number>(0);
+  const [error, setError] = useState<string>('');
   const [byCategory, setByCategory] = useState<DataProps[]>();
   const [everything, setEverything] = useState<DataProps[]>();
   const { byCategoryLoader, everythingLoader } = useNewsContext();
@@ -81,6 +83,10 @@ const Home = (): React.JSX.Element => {
         sourceName={item.sourceName}
         publishedAt={item.publishedAt}
         isFavorite={item.isFavorite}
+        id={index}
+        author={item.author}
+        content={item.content}
+        url={item.url}
       />
     );
   };
@@ -101,7 +107,7 @@ const Home = (): React.JSX.Element => {
   const onEndReached = () => {
     if (!everythingLoader.isLoadingMore) {
       everythingLoader.loadMore();
-      scrollToOffset(); // sem passar valor fixo
+      scrollToOffset();
     }
   };
 
@@ -114,7 +120,7 @@ const Home = (): React.JSX.Element => {
 
   const ListFooterComponent = () => {
     if (everythingLoader.error) {
-      console.error('Oops: ', everythingLoader.error);
+      setError(everythingLoader.error);
     }
     return everythingLoader.isLoadingMore && (
       <ActivityIndicator size="large" color={theme.colors.primaryColor} />
@@ -134,6 +140,10 @@ const Home = (): React.JSX.Element => {
             description: item.description,
             sourceName: item.sourceName,
             publishedAt: item.publishedAt,
+            id: index,
+            author: item.author,
+            content: item.content,
+            url: item.url,
             isFavorite: false,
           }, index)
         }
@@ -149,6 +159,8 @@ const Home = (): React.JSX.Element => {
               title={'News for your\nInsomnia'}
               imageStr={require('../../assets/images/imgScreen1.png')}
             />
+
+            {error && <Error err={error} />}
             <TextVariant textType="titleSmall">Favorite category</TextVariant>
             {byCategory && byCategory.length > 0 &&
             <>
@@ -166,6 +178,10 @@ const Home = (): React.JSX.Element => {
                     description: item.description,
                     sourceName: item.sourceName,
                     publishedAt: item.publishedAt,
+                    id: index,
+                    author: item.author,
+                    content: item.content,
+                    url: item.url,
                     isFavorite: false,
                   }, index)
                 }

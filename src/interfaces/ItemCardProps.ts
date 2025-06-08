@@ -6,6 +6,10 @@ export interface ItemCardStyledProps {
 
 export interface ItemCardProps {
   itemCardType: ItemCardType;
+  id: number,
+  author: string,
+  content: string
+  url: string,
   urlToImage: string;
   title: string;
   description: string;

@@ -54,7 +54,7 @@ export const getTextVariants = (theme: Theme) => ({
   },
   captionLarge: {
     fontSize: theme.fontSize.xs,
-    color: theme.colors.white,
+    color: theme.colors.gray,
     fontFamily: theme.fontFamily.captionLarge,
   },
   captionLargeItalic: {

@@ -2,7 +2,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Screens
-import FavoriteCategories from '../../screens/FavoriteCategories';
+import NewsDetail from '../../screens/NewsDetail';
 
 // Routes
 import TabRoutes from '../custom/tab.routes';
@@ -17,7 +17,7 @@ const AppStack = (): React.JSX.Element => {
         headerShown: false,
       }}>
       <Screen name="TabRoutes" component={TabRoutes} />
-      <Screen name="FavoriteCategories" component={FavoriteCategories} />
+      <Screen name="NewsDetail" component={NewsDetail} />
     </Navigator>
   );
 };

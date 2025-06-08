@@ -1,6 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // External Libraries
-import React, { createContext, useContext, ReactNode, useEffect } from 'react';
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useEffect,
+} from 'react';
 
 // .ENV
 import { API_KEY } from '@env';
