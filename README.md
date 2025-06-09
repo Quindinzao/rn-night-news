@@ -41,6 +41,9 @@ yarn android # para Android
 
 Se não estiver funcionando, tente trocar o .env (em projetos comuns, não deixo esse arquivo aparecer no repositório, mas como é apenas um teste, não me importei tanto)
 
+## Vídeo demonstrativo
+O vídeo demonstrativo estará disponível a partir das 16 horas aqui: **[GitHub - Vídeo](https://github.com/Quindinzao/rn-night-news-helper)**
+
 ## Dúvidas?
 Por favor, entre em contato pelo **[WhatsApp](https://api.whatsapp.com/send?phone=5516981699765&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20projeto%20Night%20News)**, **[LinkedIn](https://www.linkedin.com/in/jo%C3%A3ovictorfernandes)** ou pelo **[E-mail](mailto:j.v.fernandes.contact@gmail.com)**.
 Agradeço desde já pela oportunidade em criar esse projeto, nos vemos em breve.
