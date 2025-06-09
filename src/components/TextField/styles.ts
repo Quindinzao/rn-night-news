@@ -1,15 +1,12 @@
 // External Libraries
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
 
 // Styles
 import { theme as shadowColor } from '../../styles/theme';
 
-const WIDTH_SCREEN = Dimensions.get('screen').width;
-
 export const RNTextField = styled.TextInput`
   height: 54px;
-  width: ${WIDTH_SCREEN - 92};
+  width: 100%;
 
   border-radius: ${({ theme }) => theme.borderRadius.sm}px;
   background-color: ${({ theme }) => theme.colors.primaryColor};

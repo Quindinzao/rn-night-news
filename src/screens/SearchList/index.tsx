@@ -7,7 +7,6 @@ import { useEffect, useRef, useState } from 'react';
 import Header from '../../components/Header';
 import ItemCard from '../../components/ItemCard';
 import Button from '../../components/Button';
-import TextField from '../../components/TextField';
 import SelectableBox from '../../components/SelectableBox';
 import ModalCategories from '../../components/ModalCategories';
 
@@ -26,6 +25,7 @@ import {
   Separator,
   TextVariant,
   CategoryScrollView,
+  TextFieldStyled,
 } from './styles';
 
 // Assets
@@ -143,7 +143,7 @@ const SearchList = (): React.JSX.Element => {
         />
         {error && <Error err="Teste" />}
         <Row>
-          <TextField
+          <TextFieldStyled
             placeholder="Search for keywords"
             value={searchText}
             onChangeText={text => setSearchText(text)}
@@ -196,7 +196,6 @@ const SearchList = (): React.JSX.Element => {
       });
       setByCategory(response.data.articles);
     } catch (err: any) {
-
       Alert.alert(err.status);
     }
   };

@@ -12,14 +12,15 @@ import IconTabHome from '../../assets/svg/TabHome';
 import IconTabHomeActive from '../../assets/svg/TabHomeActive';
 import IconTabList from '../../assets/svg/TabList';
 import IconTabListActive from '../../assets/svg/TabListActive';
-// import IconTabBookmark from '../../assets/svg/TabBookmark';
-// import IconTabBookmarkActive from '../../assets/svg/TabBookmarkActive';
+import IconTabBookmark from '../../assets/svg/TabBookmark';
+import IconTabBookmarkActive from '../../assets/svg/TabBookmarkActive';
+import SavedNews from '../../screens/SavedNews';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 const getHomeTabIcon = (focused: boolean) => focused ? <IconTabHomeActive /> : <IconTabHome />;
 const getListTabIcon = (focused: boolean) => focused ? <IconTabListActive /> : <IconTabList />;
-// const getBookmarkTabIcon = (focused: boolean) => focused ? <IconTabBookmarkActive /> : <IconTabBookmark />;
+const getSavedTabIcon = (focused: boolean) => focused ? <IconTabBookmarkActive /> : <IconTabBookmark />;
 
 const TabRoutes = (): React.JSX.Element => {
   const theme = useTheme();
@@ -58,15 +59,15 @@ const TabRoutes = (): React.JSX.Element => {
           },
         }}
       />
-      {/* <Screen
-        name="Wallet"
-        component={Wallet}
+      <Screen
+        name="Saved"
+        component={SavedNews}
         options={{
           tabBarIcon: ({ focused }) => {
-            return getBookmarkTabIcon(focused);
+            return getSavedTabIcon(focused);
           },
         }}
-      /> */}
+      />
     </Navigator>
   );
 };

@@ -8,7 +8,7 @@ export const insertSavedNews = async (props: DataProps) => {
   const db = await getDBConnection();
 
   return db.executeSql(
-    'INSERT INTO saved (sourceName, author, title, description, url, urlToImage, publishedAt, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    'INSERT INTO saved (id, sourceName, author, title, description, url, urlToImage, publishedAt, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
     [
       props.id,
       props.sourceName,
@@ -48,11 +48,11 @@ export const getSavedNews = async () => {
 };
 
 export const removeSavedNews = async (
-  id: number
+  url: string
 ) => {
   const db = await getDBConnection();
   return db.executeSql(
-    'DELETE FROM saved WHERE id = ?',
-    [id]
+    'DELETE FROM saved WHERE url = ?',
+    [url]
   );
 };

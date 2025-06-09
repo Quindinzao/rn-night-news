@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // External Libraries
 import { useEffect, useState } from 'react';
-import { Linking } from 'react-native';
+import { Alert, Linking } from 'react-native';
 
 // Components
 import Header from '../../components/Header';
 import Text from '../../components/Text';
 import Button from '../../components/Button';
 import ItemCard from '../../components/ItemCard';
+import Error from '../../components/Error';
 
 // ENV
 import { API_KEY } from '@env';
@@ -33,11 +34,12 @@ import {
   NewsDetailFlatList,
   Separator,
 } from './styles';
-import Error from '../../components/Error';
+import { getSavedNews, insertSavedNews, removeSavedNews } from '../../database/queries/saved';
 
 const NewsDetail = ({route}: propsNewsDetail) => {
   const [error, setError] = useState<string>('');
   const [data, setData] = useState<DataProps[]>([]);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
   const props = route.params.newsDetail;
 
   const separator = () => <Separator />;
@@ -58,6 +60,40 @@ const NewsDetail = ({route}: propsNewsDetail) => {
       } else {
         setError('Something went wrong, please, try again later.');
       }
+    }
+  };
+
+  const getIsSaved = async () => {
+    try {
+      const response = await getSavedNews() as DataProps[];
+      const found = response.find(item => item.url === props.url);
+      setIsSaved(!!found);
+    } catch (err: any) {
+      Alert.alert('Error', 'Oops! Something went wrong.');
+    }
+  };
+
+  const toggleSave = async () => {
+    try {
+      if (isSaved) {
+        await removeSavedNews(props.url); // cuidado: seu ID precisa estar no banco!
+        setIsSaved(false);
+      } else {
+        await insertSavedNews({
+          id: props.id,
+          sourceName: props.sourceName,
+          author: props.author,
+          title: props.title,
+          description: props.description,
+          url: props.url,
+          urlToImage: props.urlToImage,
+          publishedAt: props.publishedAt,
+          content: props.content,
+        });
+        setIsSaved(true);
+      }
+    } catch (err: any) {
+      Alert.alert('Error', 'Oops! Something went wrong. Try later.');
     }
   };
 
@@ -82,11 +118,18 @@ const NewsDetail = ({route}: propsNewsDetail) => {
 
   useEffect(() => {
     getRelatedNews();
+    getIsSaved();
   }, []);
 
   return (
     <Container>
-      <Header showIsSaved isBack title={props.title} imageStr={{ uri: props.urlToImage }}/>
+      <Header
+        onToggle={toggleSave}
+        isSaved={isSaved}
+        isBack
+        title={props.title}
+        imageStr={{ uri: props.urlToImage }}
+      />
       <Content>
         {error && <Error err={error} />}
         {props.author && <Row>
@@ -106,30 +149,30 @@ const NewsDetail = ({route}: propsNewsDetail) => {
           <Text textType="bodyMedium">Visit the original news</Text>
         </Button>
         {data && data.length > 0 &&
-        <>
-          <TextVariant textType="titleSmall">Related news</TextVariant>
-          <NewsDetailFlatList
-            data={data}
-            renderItem={({ item, index } : {item: any, index: number}) =>
-              renderItemCard({
-                itemCardType: 'horizontalList',
-                urlToImage: item.urlToImage,
-                title: item.title,
-                description: item.description,
-                sourceName: item.sourceName,
-                publishedAt: item.publishedAt,
-                id: index,
-                author: item.author,
-                content: item.content,
-                url: item.url,
-                isFavorite: false,
-              }, index)
-            }
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            ItemSeparatorComponent={separator}
-          />
-        </>
+          <>
+            <TextVariant textType="titleSmall">Related news</TextVariant>
+            <NewsDetailFlatList
+              data={data}
+              renderItem={({ item, index } : {item: any, index: number}) =>
+                renderItemCard({
+                  itemCardType: 'horizontalList',
+                  urlToImage: item.urlToImage,
+                  title: item.title,
+                  description: item.description,
+                  sourceName: item.sourceName,
+                  publishedAt: item.publishedAt,
+                  id: index,
+                  author: item.author,
+                  content: item.content,
+                  url: item.url,
+                  isFavorite: false,
+                }, index)
+              }
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              ItemSeparatorComponent={separator}
+            />
+          </>
         }
       </Content>
     </Container>

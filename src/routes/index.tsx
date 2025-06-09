@@ -12,6 +12,9 @@ import CategoryStack from './stacks/category.routes';
 import { useCategoryContext } from '../contexts/CategoryContext';
 import { useNewsContext } from '../contexts/NewsContext';
 
+// Database
+import { createTableSaved } from '../database/tables/savedTable';
+
 const Routes = () => {
   const { byCategoryLoader, everythingLoader, headlinesLoader } = useNewsContext();
   const { selectedCategory, refresh } = useCategoryContext();
@@ -19,7 +22,8 @@ const Routes = () => {
 
   const prepare = async () => {
     try {
-      await refresh(); // carrega a categoria do AsyncStorage
+      await createTableSaved();
+      await refresh();
     } catch (err: any) {
       console.error('Erro ao preparar app:', err.message);
     } finally {

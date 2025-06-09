@@ -27,7 +27,6 @@ import {
 
 // Assets
 import YellowBookmarkActive from '../../assets/svg/YellowBookmarkActive';
-import YellowBookmark from '../../assets/svg/YellowBookmark';
 
 const ItemCard = (props: ItemCardProps): React.JSX.Element => {
   const navigation = useNavigation<propsStack>();
@@ -60,7 +59,7 @@ const ItemCard = (props: ItemCardProps): React.JSX.Element => {
           }
           {props.itemCardType === 'favorites' && (
             <FavoriteFlag activeOpacity={0.7}>
-              {props.isFavorite ? <YellowBookmarkActive /> : <YellowBookmark />}
+              <YellowBookmarkActive />
             </FavoriteFlag>
           )}
         </HeaderCard>

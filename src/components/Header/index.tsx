@@ -24,6 +24,7 @@ import {
 
 const Header = (props: HeaderProps): React.JSX.Element => {
   const navigation = useNavigation();
+
   return (
     <RNHeader>
       <ImageHeader source={props.imageStr} />
@@ -35,8 +36,12 @@ const Header = (props: HeaderProps): React.JSX.Element => {
           <Image source={require('../../assets/images/imgReturn.png')} />
         </TouchableReturn>
       }
-      {props.isBack &&
-        <TouchableSave activeOpacity={0.6}>
+      {
+        props.isBack &&
+        props.isSaved !== undefined &&
+        props.onToggle !== undefined &&
+
+        <TouchableSave activeOpacity={0.6} onPress={props.onToggle}>
           {props.isSaved ? <YellowBookmarkActive /> : <YellowBookmark />}
         </TouchableSave>
       }

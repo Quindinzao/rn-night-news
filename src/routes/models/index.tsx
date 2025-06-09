@@ -4,7 +4,6 @@ import { DataProps } from '../../interfaces/DataProps';
 export type propsNavigationStack = {
   FavoriteCategories: undefined;
   TabRoutes: undefined;
-  Home: undefined;
   NewsDetail: {
     newsDetail: DataProps;
   };
