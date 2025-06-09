@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-/* eslint-disable react/no-unstable-nested-components */
 // External Libraries
 import { useEffect, useState } from 'react';
+import { RefreshControl } from 'react-native';
 
 // Components
-import Header from '../../components/Header';
 import ItemCard from '../../components/ItemCard';
-import TextField from '../../components/TextField';
-import Error from '../../components/Error';
+import ListEmptyComponent from '../../components/ListEmptyComponent';
+import ListHeaderSavedComponent from '../../components/ListHeaderSavedComponent';
 
 // Database
 import { getSavedNews } from '../../database/queries/saved';
@@ -20,15 +19,11 @@ import { DataProps } from '../../interfaces/DataProps';
 // Styles
 import {
   Container,
-  Row,
   SearchFlatList,
   Separator,
-  TextVariant,
 } from './styles';
-import { RefreshControl } from 'react-native';
 
 const SavedNews = (): React.JSX.Element => {
-  const [error, setError] = useState<string>('');
   const [saved, setSaved] = useState<DataProps[]>([]);
   const [filteredSaved, setFilteredSaved] = useState<DataProps[]>([]);
   const [searchText, setSearchText] = useState<string>('');
@@ -51,25 +46,6 @@ const SavedNews = (): React.JSX.Element => {
         content={item.content}
         url={item.url}
       />
-    );
-  };
-  const ListHeaderComponent = () => {
-    return (
-      <>
-        <Header
-          title={'News for your\nMind'}
-          imageStr={require('../../assets/images/imgScreen3.png')}
-        />
-        {error && <Error err="Teste" />}
-        <Row>
-          <TextField
-            placeholder="Search for keywords"
-            value={searchText}
-            onChangeText={text => setSearchText(text)}
-          />
-        </Row>
-        <TextVariant textType="titleSmall">Saved</TextVariant>
-      </>
     );
   };
 
@@ -95,7 +71,7 @@ const SavedNews = (): React.JSX.Element => {
       const response = await getSavedNews() as DataProps[];
       setSaved(response);
     } catch (err: any) {
-      setError(err.message);
+      console.log(err);
     } finally {
       setRefreshing(false);
     }
@@ -107,36 +83,41 @@ const SavedNews = (): React.JSX.Element => {
 
   return (
     <Container>
-      {saved && saved?.length > 0 &&
-        <SearchFlatList
-          data={saved ? saved : filteredSaved}
-          renderItem={({ item, index } : {item: any, index: number}) =>
-            renderItemCard({
-              itemCardType: 'favorites',
-              urlToImage: item.urlToImage,
-              title: item.title,
-              description: item.description,
-              sourceName: item.sourceName,
-              publishedAt: item.publishedAt,
-              id: index,
-              author: item.author,
-              content: item.content,
-              url: item.url,
-              isFavorite: false,
-            }, index)
-          }
-          scrollEventThrottle={16}
-          ItemSeparatorComponent={separator}
-          onEndReachedThreshold={0.1}
-          ListHeaderComponent={ListHeaderComponent}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={requestSaved}
-            />
-          }
-        />
-      }
+      <SearchFlatList
+        data={filteredSaved}
+        renderItem={({ item, index } : {item: any, index: number}) =>
+          renderItemCard({
+            itemCardType: 'favorites',
+            urlToImage: item.urlToImage,
+            title: item.title,
+            description: item.description,
+            sourceName: item.sourceName,
+            publishedAt: item.publishedAt,
+            id: index,
+            author: item.author,
+            content: item.content,
+            url: item.url,
+            isFavorite: false,
+          }, index)
+        }
+        scrollEventThrottle={16}
+        ItemSeparatorComponent={separator}
+        onEndReachedThreshold={0.1}
+        keyboardShouldPersistTaps={'always'}
+        ListHeaderComponent={
+          <ListHeaderSavedComponent
+            searchText={searchText}
+            setSearchText={setSearchText}
+          />
+        }
+        ListEmptyComponent={ListEmptyComponent}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={requestSaved}
+          />
+        }
+      />
     </Container>
   );
 };

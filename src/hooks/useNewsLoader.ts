@@ -1,22 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // External Libraries
 import { useEffect, useState } from 'react';
-import { ResultSet, Transaction } from 'react-native-sqlite-storage';
 
 // Interfaces
 import { DataProps } from '../interfaces/DataProps';
+import { NewsProps } from '../interfaces/NewsProps';
 
 // Services
 import { api } from '../services/newsApi';
-
-interface NewsProps {
-  urlName: string;
-  params: any;
-  createTable: () => Promise<[ResultSet]>;
-  deleteNews: () => Promise<unknown>;
-  insertNews: (articles: DataProps[]) => Promise<Transaction>;
-  getNews: () => Promise<unknown>;
-}
 
 export const useNewsLoader = (props: NewsProps) => {
   const [news, setNews] = useState<DataProps[]>([]);

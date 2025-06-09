@@ -5,5 +5,6 @@ import styled from 'styled-components/native';
 import Text from '../Text';
 
 export const ErrorText = styled(Text)`
+  margin-top: ${({ theme }) => theme.spacing.lg}px;
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
 `;

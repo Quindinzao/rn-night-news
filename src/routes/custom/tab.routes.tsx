@@ -6,6 +6,7 @@ import { useTheme } from 'styled-components/native';
 // Screens
 import Home from '../../screens/Home';
 import SearchList from '../../screens/SearchList';
+import SavedNews from '../../screens/SavedNews';
 
 // Assets
 import IconTabHome from '../../assets/svg/TabHome';
@@ -14,7 +15,6 @@ import IconTabList from '../../assets/svg/TabList';
 import IconTabListActive from '../../assets/svg/TabListActive';
 import IconTabBookmark from '../../assets/svg/TabBookmark';
 import IconTabBookmarkActive from '../../assets/svg/TabBookmarkActive';
-import SavedNews from '../../screens/SavedNews';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 

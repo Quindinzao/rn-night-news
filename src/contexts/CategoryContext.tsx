@@ -1,18 +1,11 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
+import { CategoryContextProps } from '../interfaces/CategoriesContextProps';
 
 const STORAGE_KEY = '@selectedCategory';
 
-interface CategoryContextType {
-  isReady: boolean;
-  selectedCategory: string | null;
-  saveCategory: (category: string) => Promise<boolean>;
-  refresh: () => Promise<void>;
-  error: string | null;
-}
-
-const CategoryContext = createContext<CategoryContextType>({
+const CategoryContext = createContext<CategoryContextProps>({
   isReady: false,
   selectedCategory: null,
   saveCategory: async () => false,

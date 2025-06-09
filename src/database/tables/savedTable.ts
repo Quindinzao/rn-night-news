@@ -6,11 +6,12 @@ export const createTableSaved = async () => {
 
   const query = `
     CREATE TABLE IF NOT EXISTS saved (
-      url TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       sourceName TEXT,
       author TEXT,
       title TEXT,
       description TEXT,
+      url TEXT,
       urlToImage TEXT,
       publishedAt TEXT,
       content TEXT

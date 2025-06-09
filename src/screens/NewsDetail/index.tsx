@@ -45,7 +45,7 @@ const NewsDetail = ({route}: propsNewsDetail) => {
   const separator = () => <Separator />;
   const getRelatedNews = async () => {
     try {
-      const response = await api.get('/everything', {
+      const response = await api.get('/top-headlines', {
         params: {
           q: props.title.split(' ')[0],
           apiKey: API_KEY,
@@ -58,7 +58,7 @@ const NewsDetail = ({route}: propsNewsDetail) => {
       if (err.code === 'ERR_NETWORK') {
         setError('You do not have access to internet.');
       } else {
-        setError('Something went wrong, please, try again later.');
+        setError('Something went wrong, please, try again later.' + err.message);
       }
     }
   };
@@ -93,7 +93,7 @@ const NewsDetail = ({route}: propsNewsDetail) => {
         setIsSaved(true);
       }
     } catch (err: any) {
-      Alert.alert('Error', 'Oops! Something went wrong. Try later.');
+      Alert.alert('Error', 'Oops! Something went wrong. Try again later.');
     }
   };
 
@@ -131,7 +131,6 @@ const NewsDetail = ({route}: propsNewsDetail) => {
         imageStr={{ uri: props.urlToImage }}
       />
       <Content>
-        {error && <Error err={error} />}
         {props.author && <Row>
           <Text textType="captionLarge">Author: </Text>
           <StyledText textType="captionLargeItalic" ellipsizeMode="tail" numberOfLines={1}>{props.author}</StyledText>
@@ -148,7 +147,7 @@ const NewsDetail = ({route}: propsNewsDetail) => {
         <Button onPress={() => Linking.openURL(props.url)} typeButton={'text'}>
           <Text textType="bodyMedium">Visit the original news</Text>
         </Button>
-        {data && data.length > 0 &&
+        {data && !error &&
           <>
             <TextVariant textType="titleSmall">Related news</TextVariant>
             <NewsDetailFlatList
@@ -174,6 +173,7 @@ const NewsDetail = ({route}: propsNewsDetail) => {
             />
           </>
         }
+        {error && <Error err={error} />}
       </Content>
     </Container>
   );

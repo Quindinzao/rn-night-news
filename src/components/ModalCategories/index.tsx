@@ -1,18 +1,25 @@
+// External Libraries
 import { Modal as RNModal } from 'react-native';
-import { CategoriesMosaic, CloseButton, ModalContent, Row } from './styles';
+
+// Components
 import Text from '../Text';
-import Close from '../../assets/svg/Close';
 import SelectableBox from '../SelectableBox';
 
-interface ModalCategories {
-  isModalVisible: boolean;
-  setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  handleCategoryPress: (category: string) => void;
-  newsCategories: string[];
-  selectedCategory: string;
-}
+// Interfaces
+import { ModalCategoriesProps } from '../../interfaces/ModalCategoriesProps';
 
-const ModalCategories = (props: ModalCategories): React.JSX.Element => {
+// Assets
+import Close from '../../assets/svg/Close';
+
+// Styles
+import {
+  CategoriesMosaic,
+  CloseButton,
+  ModalContent,
+  Row,
+} from './styles';
+
+const ModalCategories = (props: ModalCategoriesProps): React.JSX.Element => {
 
   const closeModal = () => props.setIsModalVisible(false);
 

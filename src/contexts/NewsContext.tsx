@@ -35,20 +35,11 @@ import {
   deleteByCategoryNews,
 } from '../database/queries/byCategory';
 
-// Contexto de Categorias
+// Contexts
 import { useCategoryContext } from './CategoryContext';
 
 // Interfaces
-import { DataProps } from '../interfaces/DataProps';
-
-interface NewsLoaderProps {
-  news: DataProps[];
-  loading: boolean;
-  error?: string;
-  loadNews: () => void;
-  loadMore: () => void;
-  isLoadingMore: boolean;
-}
+import { NewsLoaderProps } from '../interfaces/NewsLoaderProps';
 
 interface NewsContextProps {
   everythingLoader: NewsLoaderProps;

@@ -14,7 +14,12 @@ import { useCategoryContext } from '../../contexts/CategoryContext';
 import { newsCategories } from '../../constants/categories';
 
 // Styles
-import { Container, Content, ContentButton, StyledLogo } from './styles';
+import {
+  Container,
+  Content,
+  ContentButton,
+  StyledLogo,
+} from './styles';
 
 const FavoriteCategories = (): React.JSX.Element => {
   const { saveCategory, selectedCategory } = useCategoryContext();
