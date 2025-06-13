@@ -13,6 +13,9 @@ import Error from '../../components/Error';
 // ENV
 import { API_KEY } from '@env';
 
+// Database
+import { getSavedNews, insertSavedNews, removeSavedNews } from '../../database/queries/saved';
+
 // Routes
 import { propsNewsDetail } from '../../routes/models';
 
@@ -34,7 +37,6 @@ import {
   NewsDetailFlatList,
   Separator,
 } from './styles';
-import { getSavedNews, insertSavedNews, removeSavedNews } from '../../database/queries/saved';
 
 const NewsDetail = ({route}: propsNewsDetail) => {
   const [error, setError] = useState<string>('');
@@ -76,7 +78,7 @@ const NewsDetail = ({route}: propsNewsDetail) => {
   const toggleSave = async () => {
     try {
       if (isSaved) {
-        await removeSavedNews(props.url); // cuidado: seu ID precisa estar no banco!
+        await removeSavedNews(props.url);
         setIsSaved(false);
       } else {
         await insertSavedNews({

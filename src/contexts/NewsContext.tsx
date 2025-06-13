@@ -7,9 +7,6 @@ import React, {
   useEffect,
 } from 'react';
 
-// .ENV
-import { API_KEY } from '@env';
-
 // Hooks personalizados
 import { useNewsLoader } from '../hooks/useNewsLoader';
 
@@ -56,9 +53,8 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
   const everythingLoader = useNewsLoader({
     urlName: '/everything',
     params: {
-      q: 'news',
+      q: 'night',
       page: 1,
-      apiKey: API_KEY,
     },
     createTable: createTableEverything,
     deleteNews: deleteEverythingNews,
@@ -72,7 +68,6 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
     params: {
       country: 'us',
       pageSize: 5,
-      apiKey: API_KEY,
     },
     createTable: createTableHeadlines,
     deleteNews: deleteHeadlinesNews,
@@ -87,7 +82,6 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
       country: 'us',
       category: selectedCategory,
       pageSize: 5,
-      apiKey: API_KEY,
     },
     createTable: createTableByCategory,
     deleteNews: deleteByCategoryNews,

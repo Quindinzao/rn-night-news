@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // External Libraries
 import { useEffect, useState } from 'react';
+import NetInfo from '@react-native-community/netinfo';
 
 // Interfaces
 import { DataProps } from '../interfaces/DataProps';
@@ -18,6 +19,15 @@ export const useNewsLoader = (props: NewsProps) => {
 
   const loadNews = async (isLoadMore = false) => {
     try {
+      const isConnected = await NetInfo.fetch().then(state => state.isConnected);
+
+      if (!isConnected) {
+        const offlineNews = await props.getNews() as DataProps[];
+        setNews(offlineNews);
+        setLoading(false);
+        return;
+      }
+
       if (!isLoadMore) {
         setLoading(true);
         await props.createTable();
