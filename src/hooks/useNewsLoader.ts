@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // External Libraries
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import NetInfo from '@react-native-community/netinfo';
 
 // Interfaces
-import { DataProps } from '../interfaces/DataProps';
-import { NewsProps } from '../interfaces/NewsProps';
+import {DataProps} from '../interfaces/DataProps';
+import {NewsProps} from '../interfaces/NewsProps';
 
 // Services
-import { api } from '../services/newsApi';
+import {api} from '../services/newsApi';
 
 export const useNewsLoader = (props: NewsProps) => {
   const [news, setNews] = useState<DataProps[]>([]);
@@ -19,10 +19,12 @@ export const useNewsLoader = (props: NewsProps) => {
 
   const loadNews = async (isLoadMore = false) => {
     try {
-      const isConnected = await NetInfo.fetch().then(state => state.isConnected);
+      const isConnected = await NetInfo.fetch().then(
+        state => state.isConnected,
+      );
 
       if (!isConnected) {
-        const offlineNews = await props.getNews() as DataProps[];
+        const offlineNews = (await props.getNews()) as DataProps[];
         setNews(offlineNews);
         setLoading(false);
         return;
@@ -55,20 +57,16 @@ export const useNewsLoader = (props: NewsProps) => {
       }));
 
       if (!isLoadMore) {
-        await Promise.all([
-          props.deleteNews(),
-          props.insertNews(flatArticles),
-        ]);
-        const sqliteNews = await props.getNews() as DataProps[];
+        await props.insertNews(flatArticles);
+        const sqliteNews = (await props.getNews()) as DataProps[];
         setNews(sqliteNews);
       } else {
         setNews(prev => [...prev, ...flatArticles]);
         setPage(prev => prev + 1);
       }
-
     } catch (err: any) {
       try {
-        const offlineNews = await props.getNews() as DataProps[];
+        const offlineNews = (await props.getNews()) as DataProps[];
         setNews(offlineNews);
       } catch (sqliteError: any) {
         setError(sqliteError.message);

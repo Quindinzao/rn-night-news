@@ -1,42 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // External Libraries
-import React, {
-  createContext,
-  useContext,
-  ReactNode,
-  useEffect,
-} from 'react';
+import React, {createContext, useContext, ReactNode, useEffect} from 'react';
 
 // Hooks personalizados
-import { useNewsLoader } from '../hooks/useNewsLoader';
+import {useNewsLoader} from '../hooks/useNewsLoader';
 
 // Database – criação de tabelas
-import { createTableEverything } from '../database/tables/everythingTable';
-import { createTableHeadlines } from '../database/tables/headlinesTable';
-import { createTableByCategory } from '../database/tables/byCategoryTable';
+import {createTableEverything} from '../database/tables/everythingTable';
+import {createTableHeadlines} from '../database/tables/headlinesTable';
+import {createTableByCategory} from '../database/tables/byCategoryTable';
 
 // Database – queries
 import {
   insertEverythingMultipleNews,
   getEverythingNews,
-  deleteEverythingNews,
 } from '../database/queries/everything';
 import {
   insertHeadlinesMultipleNews,
   getHeadlinesNews,
-  deleteHeadlinesNews,
 } from '../database/queries/headlines';
 import {
   insertByCategoryMultipleNews,
   getByCategoryNews,
-  deleteByCategoryNews,
 } from '../database/queries/byCategory';
 
 // Contexts
-import { useCategoryContext } from './CategoryContext';
+import {useCategoryContext} from './CategoryContext';
 
 // Interfaces
-import { NewsLoaderProps } from '../interfaces/NewsLoaderProps';
+import {NewsLoaderProps} from '../interfaces/NewsLoaderProps';
 
 interface NewsContextProps {
   everythingLoader: NewsLoaderProps;
@@ -46,37 +38,38 @@ interface NewsContextProps {
 
 const NewsContext = createContext<NewsContextProps | undefined>(undefined);
 
-export const NewsProvider = ({ children }: { children: ReactNode }) => {
-  const { selectedCategory } = useCategoryContext();
+export const NewsProvider = ({children}: {children: ReactNode}) => {
+  const {selectedCategory} = useCategoryContext();
 
-  // 1) Carregador “Everything” (sem depender de categoria)
+  // 1) Carregador “Everything”
   const everythingLoader = useNewsLoader({
+    tableName: 'everything',
     urlName: '/everything',
     params: {
       q: 'night',
       page: 1,
     },
     createTable: createTableEverything,
-    deleteNews: deleteEverythingNews,
     insertNews: insertEverythingMultipleNews,
     getNews: getEverythingNews,
   });
 
-  // 2) Carregador “Headlines” (sem depender de categoria)
+  // 2) Carregador “Headlines”
   const headlinesLoader = useNewsLoader({
+    tableName: 'headlines',
     urlName: '/top-headlines',
     params: {
       country: 'us',
       pageSize: 5,
     },
     createTable: createTableHeadlines,
-    deleteNews: deleteHeadlinesNews,
     insertNews: insertHeadlinesMultipleNews,
     getNews: getHeadlinesNews,
   });
 
-  // 3) Carregador “By Category”: agora reage à mudança de selectedCategory
+  // 3) Carregador “By Category”
   const byCategoryLoader = useNewsLoader({
+    tableName: 'byCategory',
     urlName: '/top-headlines',
     params: {
       country: 'us',
@@ -84,7 +77,6 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
       pageSize: 5,
     },
     createTable: createTableByCategory,
-    deleteNews: deleteByCategoryNews,
     insertNews: insertByCategoryMultipleNews,
     getNews: getByCategoryNews,
   });
@@ -96,7 +88,8 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
   }, [selectedCategory]);
 
   return (
-    <NewsContext.Provider value={{ everythingLoader, headlinesLoader, byCategoryLoader }}>
+    <NewsContext.Provider
+      value={{everythingLoader, headlinesLoader, byCategoryLoader}}>
       {children}
     </NewsContext.Provider>
   );
