@@ -1,15 +1,19 @@
-type ItemCardType = 'carousel' | 'verticalList' | 'horizontalList' | 'favorites'
+type ItemCardType =
+  | 'carousel'
+  | 'verticalList'
+  | 'horizontalList'
+  | 'favorites';
 
 export interface ItemCardStyledProps {
-  itemCardType: ItemCardType
+  itemCardType: ItemCardType;
 }
 
 export interface ItemCardProps {
   itemCardType: ItemCardType;
-  id: number,
-  author: string,
-  content: string
-  url: string,
+  id: number;
+  author: string;
+  content: string;
+  url: string;
   urlToImage: string;
   title: string;
   description: string;

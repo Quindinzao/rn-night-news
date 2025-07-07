@@ -4,7 +4,7 @@ import Button from '../Button';
 import SelectableBox from '../SelectableBox';
 
 // Interfaces
-import { ListHeaderSearchComponentProps } from '../../interfaces/ListHeaderSearchComponent';
+import {ListHeaderSearchComponentProps} from '../../interfaces/ListHeaderSearchComponent';
 
 // Styles
 import {
@@ -38,34 +38,43 @@ const ListHeaderSearchComponent = (props: ListHeaderSearchComponentProps) => {
         </Button>
       </Row>
       <CategoryScrollView>
-        {props.selectedCategory !== '' &&
+        {props.selectedCategory !== '' && (
           <SelectableBox
             label={props.selectedCategory}
             onToggle={props.handleCategoryPress}
             selectedCategory={props.selectedCategory}
           />
-        }
-      </CategoryScrollView>
-      <TextVariant textType="titleSmall">Breaking news</TextVariant>
-      <ItemCardScrollView>
-        {props.list && props.list.map((item, index) =>
-          props.renderItemCard({
-            itemCardType: 'horizontalList',
-            urlToImage: item.urlToImage,
-            title: item.title,
-            description: item.description,
-            sourceName: item.sourceName,
-            publishedAt: item.publishedAt,
-            id: index,
-            author: item.author,
-            content: item.content,
-            url: item.url,
-            isFavorite: false,
-          }, index)
         )}
-      </ItemCardScrollView>
+      </CategoryScrollView>
+      {props.list && props.list.length > 0 && (
+        <>
+          <TextVariant textType="titleSmall">Breaking news</TextVariant>
+          <ItemCardScrollView>
+            {props.list.map((item, index) =>
+              props.renderItemCard(
+                {
+                  itemCardType: 'horizontalList',
+                  urlToImage: item.urlToImage,
+                  title: item.title,
+                  description: item.description,
+                  sourceName: item.sourceName,
+                  publishedAt: item.publishedAt,
+                  id: index,
+                  author: item.author,
+                  content: item.content,
+                  url: item.url,
+                  isFavorite: false,
+                },
+                index,
+              ),
+            )}
+          </ItemCardScrollView>
+        </>
+      )}
       <TextVariant textType="titleSmall">
-        {!props.selectedCategory ? 'News' : `Top 20 news by category "${props.selectedCategory}"`}
+        {!props.selectedCategory
+          ? 'News'
+          : `Top 20 news by category "${props.selectedCategory}"`}
       </TextVariant>
     </>
   );

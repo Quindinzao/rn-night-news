@@ -1,5 +1,5 @@
 // Database
-import { getDBConnection } from '../connection';
+import {getDBConnection} from '../connection';
 
 export const createTableSaved = async () => {
   const db = await getDBConnection();
@@ -14,7 +14,7 @@ export const createTableSaved = async () => {
       url TEXT,
       urlToImage TEXT,
       publishedAt TEXT,
-      content TEXT
+      content TEX
     );
   `;
 

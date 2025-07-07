@@ -5,24 +5,11 @@ import React, {createContext, useContext, ReactNode, useEffect} from 'react';
 // Hooks personalizados
 import {useNewsLoader} from '../hooks/useNewsLoader';
 
-// Database – criação de tabelas
-import {createTableEverything} from '../database/tables/everythingTable';
-import {createTableHeadlines} from '../database/tables/headlinesTable';
-import {createTableByCategory} from '../database/tables/byCategoryTable';
+// Database – create tables
+import {createTableNews} from '../database/tables/newsTable';
 
 // Database – queries
-import {
-  insertEverythingMultipleNews,
-  getEverythingNews,
-} from '../database/queries/everything';
-import {
-  insertHeadlinesMultipleNews,
-  getHeadlinesNews,
-} from '../database/queries/headlines';
-import {
-  insertByCategoryMultipleNews,
-  getByCategoryNews,
-} from '../database/queries/byCategory';
+import {getNews, insertNews} from '../database/queries/news';
 
 // Contexts
 import {useCategoryContext} from './CategoryContext';
@@ -43,42 +30,43 @@ export const NewsProvider = ({children}: {children: ReactNode}) => {
 
   // 1) Carregador “Everything”
   const everythingLoader = useNewsLoader({
-    tableName: 'everything',
+    typeNews: 'everything',
     urlName: '/everything',
     params: {
       q: 'night',
       page: 1,
+      pageSize: 30,
     },
-    createTable: createTableEverything,
-    insertNews: insertEverythingMultipleNews,
-    getNews: getEverythingNews,
+    createTable: createTableNews,
+    insertNews: insertNews,
+    getNews: () => getNews('everything'),
   });
 
   // 2) Carregador “Headlines”
   const headlinesLoader = useNewsLoader({
-    tableName: 'headlines',
+    typeNews: 'headlines',
     urlName: '/top-headlines',
     params: {
       country: 'us',
       pageSize: 5,
     },
-    createTable: createTableHeadlines,
-    insertNews: insertHeadlinesMultipleNews,
-    getNews: getHeadlinesNews,
+    createTable: createTableNews,
+    insertNews: insertNews,
+    getNews: () => getNews('headlines'),
   });
 
   // 3) Carregador “By Category”
   const byCategoryLoader = useNewsLoader({
-    tableName: 'byCategory',
+    typeNews: 'byCategory',
     urlName: '/top-headlines',
     params: {
       country: 'us',
       category: selectedCategory,
       pageSize: 5,
     },
-    createTable: createTableByCategory,
-    insertNews: insertByCategoryMultipleNews,
-    getNews: getByCategoryNews,
+    createTable: createTableNews,
+    insertNews: insertNews,
+    getNews: () => getNews('byCategory'),
   });
 
   useEffect(() => {

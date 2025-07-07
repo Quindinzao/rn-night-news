@@ -1,7 +1,7 @@
 // External Libraries
-import { ReactNode } from 'react';
+import {ReactNode} from 'react';
 
-export type TypeButton = 'icon' | 'text'
+export type TypeButton = 'icon' | 'text';
 
 export interface ButtonStyleProps {
   typeButton: TypeButton;
@@ -10,5 +10,5 @@ export interface ButtonStyleProps {
 export interface ButtonProps {
   onPress: () => void;
   children: ReactNode;
-  typeButton: TypeButton
+  typeButton: TypeButton;
 }

@@ -1,6 +1,6 @@
 // Interfaces
-import { DataProps } from './DataProps';
-import { ItemCardProps } from './ItemCardProps';
+import {DataProps} from './DataProps';
+import {ItemCardProps} from './ItemCardProps';
 
 export interface ListHeaderHomeComponentProps {
   renderItemCard: (item: ItemCardProps, index: number) => any;

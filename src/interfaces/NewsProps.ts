@@ -6,7 +6,7 @@ import {DataProps} from './DataProps';
 
 export interface NewsProps {
   urlName: string;
-  tableName: string;
+  typeNews: 'everything' | 'byCategory' | 'headlines' | 'saved';
   params: any;
   createTable: () => Promise<[ResultSet]>;
   insertNews: (articles: DataProps[]) => Promise<Transaction | void>;

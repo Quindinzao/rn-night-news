@@ -1,69 +1,64 @@
-
 // External Libraries
-import { useEffect, useRef, useState } from 'react';
-import { FlatList } from 'react-native';
+import {useEffect, useRef, useState} from 'react';
+import {FlatList, NativeScrollEvent, NativeSyntheticEvent} from 'react-native';
 
 // Components
 import ItemCard from '../../components/ItemCard';
 import ListFooterComponent from '../../components/ListFooterComponent';
 import ListEmptyComponent from '../../components/ListEmptyComponent';
+import ListHeaderHomeComponent from '../../components/ListHeaderHomeComponent';
 
 // Contexts
-import { useNewsContext } from '../../contexts/NewsContext';
+import {useNewsContext} from '../../contexts/NewsContext';
 
 // Interfaces
-import { ItemCardProps } from '../../interfaces/ItemCardProps';
-import { DataProps } from '../../interfaces/DataProps';
+import {ItemCardProps} from '../../interfaces/ItemCardProps';
+import {DataProps} from '../../interfaces/DataProps';
 
 // Styles
-import {
-  Container,
-  HomeFlatList,
-  Separator,
-} from './styles';
-import ListHeaderHomeComponent from '../../components/ListHeaderHomeComponent';
+import {Container, HomeFlatList, Separator} from './styles';
 
 const Home = (): React.JSX.Element => {
   const flatListRef = useRef<FlatList>(null);
   const [currentOffset, setCurrentOffset] = useState<number>(0);
-  const [byCategory, setByCategory] = useState<DataProps[]>();
-  const [everything, setEverything] = useState<DataProps[]>();
-  const { byCategoryLoader, everythingLoader } = useNewsContext();
+  const [byCategory, setByCategory] = useState<DataProps[]>([]);
+  const [everything, setEverything] = useState<DataProps[]>([]);
+  const {byCategoryLoader, everythingLoader} = useNewsContext();
 
   const separator = () => <Separator />;
-  const renderItemCard = (item: ItemCardProps, index: number) => {
-    return (
-      <ItemCard
-        key={index}
-        itemCardType={item.itemCardType}
-        urlToImage={item.urlToImage}
-        title={item.title}
-        description={item.description}
-        sourceName={item.sourceName}
-        publishedAt={item.publishedAt}
-        isFavorite={item.isFavorite}
-        id={index}
-        author={item.author}
-        content={item.content}
-        url={item.url}
-      />
-    );
-  };
+
+  const renderItemCard = (item: ItemCardProps, index: number) => (
+    <ItemCard
+      key={index}
+      itemCardType={item.itemCardType}
+      urlToImage={item.urlToImage}
+      title={item.title}
+      description={item.description}
+      sourceName={item.sourceName}
+      publishedAt={item.publishedAt}
+      isFavorite={item.isFavorite}
+      id={index}
+      author={item.author}
+      content={item.content}
+      url={item.url}
+    />
+  );
 
   useEffect(() => {
     setByCategory(byCategoryLoader.news);
     setEverything(everythingLoader.news);
-  }, [
-    byCategoryLoader.news,
-    everythingLoader.news,
-  ]);
+  }, [byCategoryLoader.news, everythingLoader.news]);
 
-  const onScroll = (event: any) => {
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offsetY = event.nativeEvent.contentOffset.y;
     setCurrentOffset(offsetY);
   };
 
-  const onEndReached = () => {
+  const handleEndReached = () => {
+    if (everything.length === 0) {
+      return;
+    }
+
     if (!everythingLoader.isLoadingMore) {
       everythingLoader.loadMore();
       scrollToOffset();
@@ -73,7 +68,7 @@ const Home = (): React.JSX.Element => {
   const scrollToOffset = () => {
     if (flatListRef.current) {
       const newOffset = Math.max(currentOffset - currentOffset * 0.0001, 0);
-      flatListRef.current.scrollToOffset({ offset: newOffset, animated: true });
+      flatListRef.current.scrollToOffset({offset: newOffset, animated: true});
     }
   };
 
@@ -82,31 +77,34 @@ const Home = (): React.JSX.Element => {
       <HomeFlatList
         ref={flatListRef}
         data={everything}
-        renderItem={({ item, index } : {item: any, index: number}) =>
-          renderItemCard({
-            itemCardType: 'verticalList',
-            urlToImage: item.urlToImage,
-            title: item.title,
-            description: item.description,
-            sourceName: item.sourceName,
-            publishedAt: item.publishedAt,
-            id: index,
-            author: item.author,
-            content: item.content,
-            url: item.url,
-            isFavorite: false,
-          }, index)
+        renderItem={({item, index}: {item: any; index: number}) =>
+          renderItemCard(
+            {
+              itemCardType: 'verticalList',
+              urlToImage: item.urlToImage,
+              title: item.title,
+              description: item.description,
+              sourceName: item.sourceName,
+              publishedAt: item.publishedAt,
+              id: index,
+              author: item.author,
+              content: item.content,
+              url: item.url,
+              isFavorite: false,
+            },
+            index,
+          )
         }
-        onScroll={onScroll}
+        onScroll={handleScroll}
         scrollEventThrottle={16}
         ItemSeparatorComponent={separator}
-        onEndReached={onEndReached}
-        onEndReachedThreshold={0.1}
+        onEndReached={handleEndReached}
+        onEndReachedThreshold={0.4}
         ListFooterComponent={ListFooterComponent}
         ListHeaderComponent={
           <ListHeaderHomeComponent
             renderItemCard={renderItemCard}
-            list={byCategory ? byCategory : []}
+            list={byCategory}
           />
         }
         ListEmptyComponent={ListEmptyComponent}

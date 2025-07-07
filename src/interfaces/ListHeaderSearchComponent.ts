@@ -1,6 +1,6 @@
 // Interfaces
-import { DataProps } from './DataProps';
-import { ItemCardProps } from './ItemCardProps';
+import {DataProps} from './DataProps';
+import {ItemCardProps} from './ItemCardProps';
 
 export interface ListHeaderSearchComponentProps {
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;

@@ -65,7 +65,7 @@ const NewsDetail = ({route}: propsNewsDetail) => {
       const found = response.find(item => item.url === props.url);
       setIsSaved(!!found);
     } catch (err: any) {
-      Alert.alert('Error', 'Oops! Something went wrong.');
+      Alert.alert('Error', 'Oops! Something went wrong. IsSaved');
     }
   };
 
@@ -85,11 +85,15 @@ const NewsDetail = ({route}: propsNewsDetail) => {
           urlToImage: props.urlToImage,
           publishedAt: props.publishedAt,
           content: props.content,
+          typeNews: 'saved',
         });
         setIsSaved(true);
       }
     } catch (err: any) {
-      Alert.alert('Error', 'Oops! Something went wrong. Try again later.');
+      Alert.alert(
+        'Error',
+        'Oops! Something went wrong. ToggleSaved. Try again later.',
+      );
     }
   };
 

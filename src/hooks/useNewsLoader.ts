@@ -19,6 +19,15 @@ export const useNewsLoader = (props: NewsProps) => {
 
   const loadNews = async (isLoadMore = false) => {
     try {
+      if (
+        props.typeNews === 'byCategory' &&
+        (!props.params.category || props.params.category.trim() === '')
+      ) {
+        setLoading(false);
+        setIsLoadingMore(false);
+        return;
+      }
+
       const isConnected = await NetInfo.fetch().then(
         state => state.isConnected,
       );
@@ -54,6 +63,7 @@ export const useNewsLoader = (props: NewsProps) => {
         urlToImage: article.urlToImage ?? null,
         publishedAt: article.publishedAt ?? null,
         content: article.content ?? null,
+        typeNews: props.typeNews,
       }));
 
       if (!isLoadMore) {

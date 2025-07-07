@@ -1,8 +1,8 @@
 // External Librarie
-import { TextProps as RNTextProps } from 'react-native';
+import {TextProps as RNTextProps} from 'react-native';
 
 // Styles
-import { TextVariant } from '../styles/textVariants';
+import {TextVariant} from '../styles/textVariants';
 
 export interface TextProps extends RNTextProps {
   textType: TextVariant;

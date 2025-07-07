@@ -1,5 +1,5 @@
 // Interfaces
-import { DataProps } from './DataProps';
+import {DataProps} from './DataProps';
 
 export interface NewsLoaderProps {
   news: DataProps[];
