@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // External Libraries
 import {useEffect, useState} from 'react';
-import {Alert, Linking} from 'react-native';
+import {ActivityIndicator, Alert, Linking} from 'react-native';
 
 // Components
 import Header from '../../components/Header';
@@ -21,8 +21,8 @@ import {
 // Routes
 import {propsNewsDetail} from '../../routes/models';
 
-// Services
-import {getRelatedNews} from '../../services/getRelatedNews';
+// Hooks
+import {useNewsApiLoader} from '../../hooks/useNewsApiLoader';
 
 // Interfaces
 import {DataProps} from '../../interfaces/DataProps';
@@ -41,31 +41,33 @@ import {
 } from './styles';
 
 const NewsDetail = ({route}: propsNewsDetail) => {
-  const [error, setError] = useState<string>('');
-  const [data, setData] = useState<DataProps[]>([]);
-  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState(false);
   const props = route.params.newsDetail;
+  const {
+    news: relatedNews,
+    error,
+    loading,
+    loadNews,
+  } = useNewsApiLoader({
+    urlName: '/top-headlines',
+    params: {
+      q: props.title.split(' ')[0],
+      pageSize: 5,
+    },
+    typeNews: 'headlines',
+  });
+
+  console.log({title: props.title.split(' ')[0]});
 
   const separator = () => <Separator />;
-  const callGetRelatedNews = async () => {
-    try {
-      await getRelatedNews({
-        title: props.title,
-        setData,
-        setError,
-      });
-    } catch (err: any) {
-      setError(err);
-    }
-  };
 
   const getIsSaved = async () => {
     try {
       const response = (await getSavedNews()) as DataProps[];
       const found = response.find(item => item.url === props.url);
       setIsSaved(!!found);
-    } catch (err: any) {
-      Alert.alert('Error', 'Oops! Something went wrong. IsSaved');
+    } catch {
+      Alert.alert('Error', 'Oops! Something went wrong.');
     }
   };
 
@@ -89,7 +91,7 @@ const NewsDetail = ({route}: propsNewsDetail) => {
         });
         setIsSaved(true);
       }
-    } catch (err: any) {
+    } catch {
       Alert.alert(
         'Error',
         'Oops! Something went wrong. ToggleSaved. Try again later.',
@@ -97,27 +99,25 @@ const NewsDetail = ({route}: propsNewsDetail) => {
     }
   };
 
-  const renderItemCard = (item: ItemCardProps, index: number) => {
-    return (
-      <ItemCard
-        key={index}
-        itemCardType={item.itemCardType}
-        urlToImage={item.urlToImage}
-        title={item.title}
-        description={item.description}
-        sourceName={item.sourceName}
-        publishedAt={item.publishedAt}
-        isFavorite={item.isFavorite}
-        id={index}
-        author={item.author}
-        content={item.content}
-        url={item.url}
-      />
-    );
-  };
+  const renderItemCard = (item: ItemCardProps, index: number) => (
+    <ItemCard
+      key={index}
+      itemCardType={item.itemCardType}
+      urlToImage={item.urlToImage}
+      title={item.title}
+      description={item.description}
+      sourceName={item.sourceName}
+      publishedAt={item.publishedAt}
+      isFavorite={item.isFavorite}
+      id={index}
+      author={item.author}
+      content={item.content}
+      url={item.url}
+    />
+  );
 
   useEffect(() => {
-    callGetRelatedNews();
+    loadNews();
     getIsSaved();
   }, []);
 
@@ -173,11 +173,12 @@ const NewsDetail = ({route}: propsNewsDetail) => {
         <Button onPress={() => Linking.openURL(props.url)} typeButton={'text'}>
           <Text textType="bodyMedium">Visit the original news</Text>
         </Button>
-        {data && !error && (
+
+        {!error && (
           <>
             <TextVariant textType="titleSmall">Related news</TextVariant>
             <NewsDetailFlatList
-              data={data}
+              data={relatedNews}
               renderItem={({item, index}: {item: any; index: number}) =>
                 renderItemCard(
                   {
@@ -199,7 +200,9 @@ const NewsDetail = ({route}: propsNewsDetail) => {
               horizontal
               showsHorizontalScrollIndicator={false}
               ItemSeparatorComponent={separator}
-              ListEmptyComponent={<ListEmptyComponent />}
+              ListEmptyComponent={
+                loading ? <ActivityIndicator /> : <ListEmptyComponent />
+              }
             />
           </>
         )}

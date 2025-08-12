@@ -3,7 +3,7 @@
 import React, {createContext, useContext, ReactNode, useEffect} from 'react';
 
 // Hooks personalizados
-import {useNewsLoader} from '../hooks/useNewsLoader';
+import {useNewsTableLoader} from '../hooks/useNewsTableLoader';
 
 // Database – create tables
 import {createTableNews} from '../database/tables/newsTable';
@@ -29,7 +29,7 @@ export const NewsProvider = ({children}: {children: ReactNode}) => {
   const {selectedCategory} = useCategoryContext();
 
   // 1) Carregador “Everything”
-  const everythingLoader = useNewsLoader({
+  const everythingLoader = useNewsTableLoader({
     typeNews: 'everything',
     urlName: '/everything',
     params: {
@@ -43,7 +43,7 @@ export const NewsProvider = ({children}: {children: ReactNode}) => {
   });
 
   // 2) Carregador “Headlines”
-  const headlinesLoader = useNewsLoader({
+  const headlinesLoader = useNewsTableLoader({
     typeNews: 'headlines',
     urlName: '/top-headlines',
     params: {
@@ -56,7 +56,7 @@ export const NewsProvider = ({children}: {children: ReactNode}) => {
   });
 
   // 3) Carregador “By Category”
-  const byCategoryLoader = useNewsLoader({
+  const byCategoryLoader = useNewsTableLoader({
     typeNews: 'byCategory',
     urlName: '/top-headlines',
     params: {

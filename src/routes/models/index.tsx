@@ -1,17 +1,21 @@
-import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
-import { DataProps } from '../../interfaces/DataProps';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+import {DataProps} from '../../interfaces/DataProps';
 
 export type propsNavigationStack = {
   FavoriteCategories: undefined;
+  YourAPI: undefined;
   TabRoutes: undefined;
   NewsDetail: {
     newsDetail: DataProps;
   };
-}
+};
 
-export type propsStack = NativeStackNavigationProp<propsNavigationStack>
+export type propsStack = NativeStackNavigationProp<propsNavigationStack>;
 
 export type propsNewsDetail = NativeStackScreenProps<
   propsNavigationStack,
   'NewsDetail'
->
+>;

@@ -1,10 +1,10 @@
 // External Libraries
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {Dimensions} from 'react-native';
 
 // Assets
 import Logo from '../../assets/svg/Logo';
-import LinearGradient from 'react-native-linear-gradient';
 
 const WIDTH_SCREEN = Dimensions.get('screen').width;
 
@@ -18,8 +18,8 @@ export const RNHeader = styled.View`
 `;
 
 export const Shadow = styled(LinearGradient).attrs({
-  start: { x: 0.5, y: 0 },
-  end: { x: 0.5, y: 1 },
+  start: {x: 0.5, y: 0},
+  end: {x: 0.5, y: 1},
 })`
   width: ${WIDTH_SCREEN}px;
   height: ${WIDTH_SCREEN}px;
@@ -44,7 +44,7 @@ export const StyledLogo = styled(Logo).attrs({
   height: 64,
 })`
   position: absolute;
-  top: ${({ theme }) => theme.spacing.xxl}px;
+  top: ${({theme}) => theme.spacing.xxl}px;
   align-self: center;
 `;
 
@@ -62,7 +62,7 @@ export const TouchableSave = styled.TouchableOpacity`
   position: absolute;
   top: 32px;
 
-  right: ${({ theme }) => theme.spacing.md}px;
+  right: ${({theme}) => theme.spacing.md}px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.secondaryColor};
+  background-color: ${({theme}) => theme.colors.secondaryColor};
 `;
